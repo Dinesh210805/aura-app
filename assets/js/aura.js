@@ -214,8 +214,12 @@
      ---------------------------------------------------------------------- */
 
   document.querySelectorAll("[data-checklist]").forEach(function (list) {
-    var key = "aura-steps-" + list.getAttribute("data-checklist");
     var steps = [].slice.call(list.querySelectorAll(".step"));
+    // Progress is stored by position, so the step count is part of the key.
+    // These steps are the likeliest thing on the site to change; without this,
+    // inserting one would silently move every returning visitor's ticks onto
+    // the wrong rows. Versioning orphans the old key instead of mis-mapping it.
+    var key = "aura-steps-" + list.getAttribute("data-checklist") + "-v" + steps.length;
 
     var read = function () {
       try {

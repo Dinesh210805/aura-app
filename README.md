@@ -87,10 +87,16 @@ changes.
 | `data-rel="filename"` | the `.apk` asset's filename |
 | `data-rel-href` | the asset's download URL |
 
-So **publishing a new APK updates this site with no HTML edit.** The values
-written into the HTML are the current release, so the page is still correct
-with JavaScript off, offline, or if GitHub rate-limits the request — the fetch
-only ever upgrades what's already there, and silently does nothing on failure.
+The fetch refreshes those values **when it can** — but do not rely on it as the
+only update path. The unauthenticated GitHub API allows 60 requests per hour
+**per IP**, and a large share of this site's audience is on mobile carriers
+behind CGNAT, sharing an egress IP. Those visitors will get a 403 and see
+whatever is authored in the HTML.
+
+That is why the current release is hard-coded rather than left blank: the page
+stays correct with JavaScript off, offline, or rate-limited, and the fetch only
+ever upgrades what is already there. **Update the authored values each release
+too** — treat the fetch as a convenience, not the mechanism.
 
 The one value that does *not* auto-update is the **SHA-256** on
 `download.html` (`id="sha"`), because the API doesn't publish it. Update that

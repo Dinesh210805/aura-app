@@ -687,15 +687,19 @@
   gap: 7px;
 }
 
+/* No nowrap here. It kept the labels tidy on a wide card but clipped them
+   outright on a phone — body's overflow-x:hidden meant the text was cut off
+   rather than scrollable, so the second track's label simply vanished.
+   Wrapping to two lines is the correct failure. */
 .track {
   display: flex;
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
   font-size: 0.625rem;
+  line-height: 1.5;
   letter-spacing: 0.01em;
   color: var(--text-secondary);
-  white-space: nowrap;
 }
 
 .track__bar {
