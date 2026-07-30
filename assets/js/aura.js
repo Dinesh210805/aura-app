@@ -507,6 +507,27 @@
         );
       }
 
+      // --- facts that live in the release notes, not the API's own fields ---
+      //
+      // Both of these are prose in a hand-written notes file, so both parsers
+      // fail CLOSED: unless the shape is unmistakable, the authored value is
+      // left exactly as it is. A wrong checksum is worse than a stale one.
+      var notes = String(rel.body || "");
+
+      // Accept only when the whole note contains exactly one 64-hex run. Two
+      // would mean the format changed and we can no longer tell which is the
+      // APK's; zero means it wasn't published.
+      var hex = notes.match(/\b[A-Fa-f0-9]{64}\b/g);
+      if (hex && hex.length === 1) set("sha", hex[0].toUpperCase());
+
+      // Presence-based rather than sentence-shaped, so a reworded line still
+      // parses. \b stops "x86" matching inside "x86_64" — underscore is a word
+      // character, so there is no boundary between them.
+      var abis = ["arm64-v8a", "armeabi-v7a", "x86_64", "x86"].filter(function (a) {
+        return new RegExp("\\b" + a.replace(/[-]/g, "\\-") + "\\b").test(notes);
+      });
+      if (abis.length) set("abis", abis.join(" · "));
+
       document.querySelectorAll("[data-rel-href]").forEach(function (el) {
         el.setAttribute("href", apk.browser_download_url);
       });
