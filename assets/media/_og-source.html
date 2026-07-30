@@ -24,12 +24,8 @@
     position: relative;
   }
   .left { flex: 1; }
-  .mark {
-    width: 60px; height: 60px; border-radius: 17px;
-    background: #0A0A0A; display: grid; place-items: center;
-    margin-bottom: 34px;
-  }
-  .mark svg { width: 38px; height: 38px; }
+  .mark { width: 74px; height: 74px; margin-bottom: 30px; }
+  .mark img { width: 100%; height: 100%; object-fit: contain; }
   h1 {
     font-size: 74px; font-weight: 800; letter-spacing: -0.045em;
     line-height: 0.95; margin-bottom: 26px;
@@ -92,11 +88,7 @@
 <body>
 
   <div class="left">
-    <div class="mark">
-      <svg viewBox="0 0 32 32" fill="none" stroke="#FAFAF8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 22.5 16 9.5l6 13"/><path d="M12.8 18.4h6.4"/>
-      </svg>
-    </div>
+    <div class="mark"><img src="logo-512.png" alt=""></div>
     <h1>Talk to your phone.<br>It <em>actually</em> does it.</h1>
     <p>An on-device assistant that sees your screen and works your real apps.</p>
     <div class="meta">

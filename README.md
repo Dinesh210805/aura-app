@@ -19,7 +19,10 @@ site/
     ├── css/pages.css       steps, accordions, tables, code blocks, prose
     ├── js/aura.js          theme, reveal, copy buttons, live release lookup
     └── media/
-        ├── favicon.svg
+        ├── logo.png            28px brand mark — the app's real launcher icon
+        ├── logo-512.png        large mark, used by the OG card + apple-touch-icon
+        ├── favicon.png         64px tab icon
+        ├── favicon.svg         legacy fallback
         ├── og.png              1200×630 social card
         └── _og-source.html     source for og.png — see "Regenerating" below
 ```
@@ -203,6 +206,11 @@ The look is ported from the app rather than invented, so the two never drift:
   ink `#0A0A0A`, blood `#A31621`, plus the dark scheme.
 - **Typefaces** are the app's: Schibsted Grotesk for display, Instrument Sans
   for body. JetBrains Mono is added for anything the machine says.
+- **The logo is the only colour that isn't red.** `logo.png` is extracted from
+  the app's own launcher icon (`mipmap-xxxhdpi/ic_launcher_foreground.png`,
+  trimmed to its alpha bounds), so the mark on the site is the mark on the
+  user's home screen. It appears at brand size and nowhere else — the same way
+  the app carries a colourful icon inside a monochrome UI.
 - **Red is never decorative.** It appears in exactly three places, all meaning
   "look here now": the chosen element in the hero animation, the download
   button, and the restricted-settings warning. If you add a fourth, check it

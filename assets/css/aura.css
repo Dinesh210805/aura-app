@@ -458,10 +458,15 @@ strong {
   margin-right: auto;
 }
 
+/* The real launcher icon, and the only colour on the site that isn't the
+   semantic red. It earns that the same way it does in the app: it is the
+   product's identity, not decoration — so it appears at brand size and
+   nowhere else. */
 .brand__mark {
   width: 28px;
   height: 28px;
   flex: none;
+  object-fit: contain;
 }
 
 .nav {
