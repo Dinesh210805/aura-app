@@ -45,7 +45,7 @@ find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
 cp -a "$SRC/." .
 
 # Files that exist to build the site, not to be served by it.
-rm -f deploy.sh README.md
+rm -f deploy.sh README.md sync-from-source.py
 
 git add -A
 
