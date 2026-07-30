@@ -38,18 +38,18 @@ This folder lives inside the private repo, so don't `git init` inside it — a
 nested repo fights the outer one. Use `git subtree`, which pushes just this
 subfolder to another repo's root and keeps a single source of truth.
 
-**One-time setup.** Create an empty public repo named `aura` on GitHub (no
+**One-time setup.** Create an empty public repo named `aura-app` on GitHub (no
 README, no license — it must be empty), then from the **repo root**:
 
 ```bash
-git remote add site https://github.com/Dinesh210805/aura.git
+git remote add site https://github.com/Dinesh210805/aura-app.git
 git subtree push --prefix site site main
 ```
 
-Then in the `aura` repo: **Settings → Pages → Source: `Deploy from a branch`
+Then in the `aura-app` repo: **Settings → Pages → Source: `Deploy from a branch`
 → Branch: `main` / `(root)` → Save.**
 
-Live in a minute or two at **https://dinesh210805.github.io/aura/**
+Live in a minute or two at **https://dinesh210805.github.io/aura-app/**
 
 **Publishing an update.** Commit to this repo as normal, then push the subtree
 again:
@@ -70,7 +70,7 @@ git push site $(git subtree split --prefix site main):main --force
 ### Why every link is relative
 
 Nothing in these pages hardcodes a domain. That means the identical folder
-works at `dinesh210805.github.io/aura/`, at a bare domain, on Vercel, or opened
+works at `dinesh210805.github.io/aura-app/`, at a bare domain, on Vercel, or opened
 straight off disk — with no edits. If you later add a custom domain, drop a
 `CNAME` file containing just the hostname into this folder; nothing else
 changes.
@@ -153,7 +153,7 @@ add one properly:
 
 ```bash
 pip install segno
-python -c "import segno; segno.make('https://dinesh210805.github.io/aura/download.html').save('site/assets/media/qr.svg', scale=8, border=2, dark='#0A0A0A', light=None)"
+python -c "import segno; segno.make('https://dinesh210805.github.io/aura-app/download.html').save('site/assets/media/qr.svg', scale=8, border=2, dark='#0A0A0A', light=None)"
 ```
 
 Then drop it into the `.handoff` block on `download.html` — **and scan it once
