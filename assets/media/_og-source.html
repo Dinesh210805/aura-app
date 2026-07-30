@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AURA OG card source</title>
+<!--
+  SOURCE FILE, NOT SHIPPED CONTENT.
+  Rendered to og.png at exactly 1200x630 with:
+      node/playwright screenshot of this file at that viewport
+  Keep it if you want to regenerate the card after a rebrand; deleting it only
+  costs you the ability to re-render.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1200px; height: 630px;
+    background: #FAFAF8;
+    font-family: "Schibsted Grotesk", sans-serif;
+    color: #111111;
+    display: flex; align-items: center;
+    padding: 0 72px;
+    overflow: hidden;
+    position: relative;
+  }
+  .left { flex: 1; }
+  .mark {
+    width: 60px; height: 60px; border-radius: 17px;
+    background: #0A0A0A; display: grid; place-items: center;
+    margin-bottom: 34px;
+  }
+  .mark svg { width: 38px; height: 38px; }
+  h1 {
+    font-size: 74px; font-weight: 800; letter-spacing: -0.045em;
+    line-height: 0.95; margin-bottom: 26px;
+  }
+  h1 em { font-style: normal; position: relative; }
+  h1 em::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0.08em;
+    height: 5px; background: #A31621;
+  }
+  p { font-size: 25px; line-height: 1.45; color: #6B6B68; max-width: 21ch; }
+  .meta {
+    position: absolute; left: 72px; bottom: 54px;
+    font-family: "JetBrains Mono", monospace; font-size: 15px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: #6B6B68;
+    display: flex; gap: 26px;
+  }
+  .meta b { color: #111; font-weight: 500; }
+
+  /* The Set-of-Marks motif, so the card carries the site's signature. */
+  .stage { width: 400px; position: relative; display: grid; place-items: center; }
+  .phone {
+    width: 268px; height: 500px; border-radius: 40px; background: #0A0A0A;
+    padding: 9px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.42);
+  }
+  .screen {
+    width: 100%; height: 100%; border-radius: 32px; background: #F2F1ED;
+    position: relative; overflow: hidden; padding: 20px 14px;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 10px;
+  }
+  .row { position: relative; border-radius: 15px; }
+  .them { align-self: flex-start; background: #fff; border: 1px solid #E8E8E4; padding: 11px 14px; font-size: 13px; }
+  .me   { align-self: flex-end; background: #0A0A0A; color: #F5F5F2; padding: 11px 14px; font-size: 13px; }
+  .field {
+    display: flex; align-items: center; gap: 9px; margin-top: 6px;
+  }
+  .input {
+    flex: 1; height: 38px; border-radius: 999px; background: #fff;
+    border: 1px solid #E8E8E4; display: flex; align-items: center;
+    padding: 0 14px; font-size: 12px; position: relative;
+  }
+  .send {
+    width: 38px; height: 38px; border-radius: 50%; background: #0A0A0A;
+    display: grid; place-items: center; flex: none; position: relative;
+  }
+  .send svg { width: 17px; height: 17px; }
+  .m {
+    position: absolute; inset: -5px; border: 2px solid #0A0A0A; border-radius: 9px;
+  }
+  .m::before {
+    content: attr(data-id); position: absolute; top: -2px; left: -2px;
+    min-width: 18px; height: 17px; padding: 0 4px; display: grid; place-items: center;
+    background: #0A0A0A; color: #FAFAF8;
+    font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 700;
+    border-radius: 7px 0 7px 0; line-height: 1;
+  }
+  .m.pick { border-color: #A31621; background: rgba(163,22,33,.12); box-shadow: 0 0 0 5px rgba(163,22,33,.14); }
+  .m.pick::before { background: #A31621; color: #fff; }
+</style>
+</head>
+<body>
+
+  <div class="left">
+    <div class="mark">
+      <svg viewBox="0 0 32 32" fill="none" stroke="#FAFAF8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 22.5 16 9.5l6 13"/><path d="M12.8 18.4h6.4"/>
+      </svg>
+    </div>
+    <h1>Talk to your phone.<br>It <em>actually</em> does it.</h1>
+    <p>An on-device assistant that sees your screen and works your real apps.</p>
+    <div class="meta">
+      <span><b>47</b> tools</span>
+      <span><b>Android 8+</b></span>
+      <span><b>Free</b> · no account</span>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="phone">
+      <div class="screen">
+        <div class="row them" style="opacity:.28">Reached home?</div>
+        <div class="row me" style="opacity:.28">Just now</div>
+        <div class="row them" style="opacity:.45">Dinner at 8?</div>
+        <div class="row me" style="opacity:.45">Yes, coming</div>
+        <div class="row them">Are you leaving now?<span class="m" data-id="2"></span></div>
+        <div class="row me">Just about to<span class="m" data-id="3"></span></div>
+        <div class="field">
+          <div class="input">running 10 mins late<span class="m" data-id="4"></span></div>
+          <div class="send">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F5F5F2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7Z"/>
+            </svg>
+            <span class="m pick" data-id="5"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

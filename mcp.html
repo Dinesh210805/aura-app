@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AURA for developers — your phone as an MCP server</title>
+<meta name="description" content="Pair Claude Code, Claude Desktop, Cursor or Copilot with a real Android phone over an encrypted peer-to-peer link. 47 MCP tools, no root, no ADB, no cloud in the data path.">
+<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151311" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="AURA for developers — your phone as an MCP server">
+<meta property="og:description" content="Drive a real Android handset from your MCP client over WebRTC. No root, no ADB cable, no cloud round-trip.">
+<meta property="og:image" content="assets/media/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/media/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/aura.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+
+<script>
+  try { var t = localStorage.getItem("aura-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="brand" href="index.html" aria-label="AURA home">
+      <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor"/>
+        <path d="M10 22.5 16 9.5l6 13" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.8 18.4h6.4" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      AURA
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#what">What it does</a>
+      <a href="index.html#safety">Safety</a>
+      <a href="mcp.html" aria-current="page">For developers</a>
+      <a href="download.html">Download</a>
+    </nav>
+    <button class="icon-btn theme-btn" type="button" aria-label="Switch theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2 12h2M20 12h2M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+    <a class="btn btn--ink" href="download.html">Get AURA</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="section">
+  <div class="wrap">
+    <div style="max-width:52ch">
+      <p class="eyebrow"><span class="eyebrow__som">01</span> For developers</p>
+      <h1 class="t-section">Your phone is an MCP server.</h1>
+      <p class="t-lead" style="margin-top:1.35rem">
+        Install the app, pair once with a six-digit PIN, and your MCP client drives a real
+        handset — taps, screenshots, deep links, the lot. No root, no ADB cable, and no
+        cloud service sitting in the data path.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--outline);border:1px solid var(--outline);border-radius:var(--r-card);overflow:hidden;margin-top:3rem" data-reveal>
+      <div class="fact">
+        <div class="fact__k">Transport</div>
+        <div class="fact__v">WebRTC <small>DTLS, peer-to-peer</small></div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">Tools</div>
+        <div class="fact__v">47 <small>read + write, scoped</small></div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">Clients at once</div>
+        <div class="fact__v">Many <small>one shared daemon</small></div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">Cloud in data path</div>
+        <div class="fact__v">None <small>signalling only</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================
+     THE HONEST LIMITATION, STATED BEFORE THE INSTRUCTIONS
+     ================================================================== -->
+<section class="section section--tight" style="padding-top:0">
+  <div class="wrap">
+    <div class="note note--critical" data-reveal>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+      <span>
+        <strong>Same Wi-Fi only, today.</strong> Your phone and your computer must be on the same
+        network. Connecting across networks needs a TURN relay, which isn't configured yet —
+        on mobile data behind carrier NAT the connection will fail at ICE. Worth knowing before
+        you plan around it.
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================
+     SETUP
+     ================================================================== -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <p class="eyebrow"><span class="eyebrow__som">02</span> Setup</p>
+      <h2 class="t-section">Pair once, then forget about it</h2>
+      <p class="t-lead">
+        Reconnects are silent after the first approval. The phone remembers the client's
+        token; you can see and revoke every paired client in the app.
+      </p>
+    </div>
+
+    <div class="steps" data-reveal>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Warm the bridge up first</div>
+          <p class="step__d">
+            The bridge pulls native WebRTC dependencies on first run, which can take a minute.
+            Do it <strong>before</strong> adding AURA to your MCP client — otherwise the client's
+            startup timeout fires during the download and the first session looks like a failure
+            when it's just a slow install.
+          </p>
+          <div class="code" style="margin-top:.9rem">
+            <button class="copy" type="button" data-copy="#warm" data-label="Copy">Copy</button>
+            <pre id="warm">npx aura-mcp-connect@latest --version</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Start the server on the phone</div>
+          <p class="step__d">
+            Open AURA → <b>MCP</b> → <b>Start WebRTC</b>. The app shows a six-digit PIN and
+            tap-to-copy commands.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Pair with the PIN</div>
+          <p class="step__d">
+            Run this on your computer, then tap <b>Approve</b> on the phone when the dialog
+            names your machine. That's the last time you'll do this — the token is remembered.
+          </p>
+          <div class="code" style="margin-top:.9rem">
+            <button class="copy" type="button" data-copy="#pair" data-label="Copy">Copy</button>
+            <pre id="pair">npx aura-mcp-connect pair <span class="c">&lt;PIN&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Point your client at the daemon</div>
+          <p class="step__d">
+            The bridge runs one shared local daemon per computer. It owns the single WebRTC
+            link to the phone and serves MCP over HTTP on localhost — so Claude Code, Claude
+            Desktop, Cursor and VS Code can all drive the same phone at once instead of
+            kicking each other off.
+          </p>
+          <div class="code" style="margin-top:.9rem">
+            <button class="copy" type="button" data-copy="#claudecode" data-label="Copy">Copy</button>
+            <pre id="claudecode"><span class="c"># Claude Code</span>
+claude mcp add --transport http aura http://127.0.0.1:4816/mcp</pre>
+          </div>
+          <p class="step__d" style="margin-top:.9rem">
+            Or by command, in any <code class="mono">mcp.json</code> — this auto-starts the shared
+            daemon. On Windows, wrap it with <code class="mono">cmd /c</code>.
+          </p>
+          <div class="code" style="margin-top:.9rem">
+            <button class="copy" type="button" data-copy="#mcpjson" data-label="Copy">Copy</button>
+            <pre id="mcpjson">{
+  <span class="c">"mcpServers"</span>: {
+    <span class="c">"aura"</span>: { <span class="c">"command"</span>: "aura-mcp", <span class="c">"args"</span>: [] }
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================
+     WHAT THE CLIENT GETS
+     ================================================================== -->
+<section class="section ink">
+  <div class="wrap">
+    <div class="head head--split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__som">03</span> The surface</p>
+        <h2 class="t-section">47 tools, and instructions for using them</h2>
+      </div>
+      <p class="t-lead">
+        The server doesn't just expose tools — it ships a behavioural contract at
+        <code class="mono" style="color:var(--text-on-ink)">initialize</code>, so a client that has
+        never seen a phone before still knows to re-check the screen after acting.
+      </p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px" data-reveal>
+      <div class="card">
+        <span class="feat__tag">Instructions</span>
+        <h3 class="t-card" style="font-size:1.15rem;margin:.85rem 0 .6rem">Sent at handshake</h3>
+        <p class="feat__body">
+          Perceive-act-verify discipline, deep-link-first, never estimate coordinates, explicit
+          stop conditions, and the hard-blocked categories — so the agent doesn't burn turns
+          discovering what it isn't allowed to do.
+        </p>
+      </div>
+      <div class="card">
+        <span class="feat__tag">Resources</span>
+        <h3 class="t-card" style="font-size:1.15rem;margin:.85rem 0 .6rem">Read on demand</h3>
+        <p class="feat__body">
+          The policy boundaries, the long-form tool-selection guide, and a live device
+          snapshot — fetched when needed rather than padding every prompt.
+        </p>
+      </div>
+      <div class="card">
+        <span class="feat__tag">Prompts</span>
+        <h3 class="t-card" style="font-size:1.15rem;margin:.85rem 0 .6rem">Workflow templates</h3>
+        <p class="feat__body">
+          Reusable starting points that walk a model through the policy-aware loop for a
+          goal, instead of leaving it to improvise one.
+        </p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px" data-reveal>
+      <span class="feat__tag">Every registered tool</span>
+      <div class="feat__art" style="padding-top:1rem">
+        <div class="tools">
+          <code data-hot>perceive_screen</code><code>get_screenshot</code><code>get_ui_tree</code><code>get_device_status</code><code>watch_device_events</code><code>tap</code><code>double_tap</code><code>long_press</code><code>swipe</code><code>scroll_up</code><code>scroll_down</code><code>scroll_left</code><code>scroll_right</code><code>scroll_to</code><code>scroll_to_element</code><code>type_text</code><code>tap_text</code><code>press_enter</code><code>press_home</code><code>press_back</code><code>open_recent_apps</code><code>launch_app</code><code>lookup_app</code><code data-hot>verify_action</code><code>validate_action</code><code>wait_for</code><code data-hot>list_app_deeplinks</code><code>resolve_deeplink</code><code>open_deeplink</code><code>read_notifications</code><code>notification_action</code><code>dismiss_notification</code><code>get_media_sessions</code><code>media_control</code><code>volume_up</code><code>volume_down</code><code>mute</code><code data-hot>system_intent</code><code>resolve_contact</code><code>find_files</code><code>open_file</code><code>web_search</code><code>get_usage_guide</code><code>request_screen_capture_permission</code><code>connect_device</code><code>end_session</code><code>echo</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================
+     SECURITY
+     ================================================================== -->
+<section class="section">
+  <div class="wrap">
+    <div class="head head--wide" data-reveal>
+      <p class="eyebrow"><span class="eyebrow__som">04</span> Security</p>
+      <h2 class="t-section">Five gates, all fail-closed</h2>
+      <p class="t-lead">
+        A tool server that can tap anything on a personal phone is a serious thing to expose.
+        Each layer below denies by default, and an unclassified tool is treated as a write.
+      </p>
+    </div>
+
+    <div class="steps" data-reveal>
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Encrypted transport</div>
+          <p class="step__d">The data channel is DTLS-encrypted by WebRTC itself. There is no plaintext path and no certificate for you to manage.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Six-digit PIN pairing</div>
+          <p class="step__d">A short-lived PIN authorises the one-time handshake. No long-lived URL or bearer token sitting in a config file waiting to leak.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Approval on the phone</div>
+          <p class="step__d">The handset shows who is connecting — client name, host, platform — and waits for a human tap. Approved clients reconnect silently, and every one is listed and revocable in the app.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Per-tool scopes</div>
+          <p class="step__d">Every tool is classified read or write. A write call from a read-only principal is rejected, and anything unclassified defaults to write rather than to open.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Sensitive-action policy</div>
+          <p class="step__d">A static engine runs before any handler. Banking, payment and authenticator packages are refused; card numbers, CVVs, national IDs and password phrases are refused as text. It lives inside the single chokepoint every tool passes through, so nothing routes around it — including the on-device agent.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:1.25rem" data-reveal>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>
+        Firebase carries the WebRTC handshake and nothing else. Once the data channel is up,
+        every tool call travels directly phone-to-computer — the signalling server never sees
+        your screen or your taps. Session logs keep raw screenshots, never the annotated
+        overlays, and audit entries key on a token prefix rather than the secret.
+      </span>
+    </p>
+  </div>
+</section>
+
+<section class="band ink">
+  <div class="wrap">
+    <h2 class="t-section">Install it, pair it, drive it.</h2>
+    <p class="t-lead">The server is the app. There's nothing else to deploy.</p>
+    <div class="band__cta">
+      <a class="btn btn--blood btn--lg" href="download.html">
+        Download for Android
+        <span class="btn__meta" data-rel="size">221 MB</span>
+      </a>
+      <a class="btn btn--ghost btn--lg" href="https://www.npmjs.com/package/aura-mcp-connect" rel="noopener">aura-mcp-connect on npm</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:1rem">
+          <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor"/>
+            <path d="M10 22.5 16 9.5l6 13" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.8 18.4h6.4" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          AURA
+        </a>
+        <p style="font-size:.875rem;color:var(--text-secondary);max-width:30ch;margin:0">
+          An on-device assistant that sees your screen and works your apps for you.
+        </p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="index.html#what">What it does</a></li>
+          <li><a href="index.html#safety">Safety</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Developers</h4>
+        <ul>
+          <li><a href="mcp.html">MCP setup</a></li>
+          <li><a href="https://www.npmjs.com/package/aura-mcp-connect" rel="noopener">aura-mcp-connect</a></li>
+          <li><a href="https://github.com/Dinesh210805/aura-releases/releases" rel="noopener">All releases</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="privacy.html#terms">Terms</a></li>
+          <li><a href="mailto:dinesh210805@gmail.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__note">
+      <span>© 2026 AURA. Built in India.</span>
+      <span class="mono" style="font-size:.75rem">
+        v<span data-rel="version">1.0.291</span> · released <span data-rel="date">30 Jul 2026</span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/aura.js" defer></script>
+</body>
+</html>

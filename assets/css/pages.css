@@ -1,0 +1,545 @@
+/* ==========================================================================
+   AURA — content-page components
+   --------------------------------------------------------------------------
+   The machinery the download, developer and legal pages are built from:
+   numbered steps, accordions, data tables, code blocks, prose. Split out of
+   components.css so neither file outgrows a single reading.
+
+   Depends on aura.css for tokens and components.css for shared surfaces.
+   Load third.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   10. Steps (download page)
+   -------------------------------------------------------------------------- */
+
+.steps {
+  display: grid;
+  gap: 1px;
+  background: var(--outline);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  counter-reset: step;
+}
+
+.step {
+  background: var(--canvas-high);
+  padding: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.step__n {
+  counter-increment: step;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1.5px solid var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.step__n::before {
+  content: counter(step);
+}
+
+.step__t {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin-bottom: 0.55rem;
+}
+
+/* Capped at a comfortable measure. The step column is wide so the number and
+   the copy align, but 100+ character lines are hard to track back from. */
+.step > div {
+  max-width: 74ch;
+}
+
+.step__d {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.step__d + .step__d,
+.step__d + .note,
+.step__d + .path {
+  margin-top: 0.9rem;
+}
+
+@media (max-width: 560px) {
+  .step {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* A literal settings path, formatted as one. */
+.path {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--r-chip);
+  background: color-mix(in srgb, var(--text-primary) 5%, transparent);
+  color: var(--text-primary);
+}
+
+.path b {
+  font-weight: 600;
+}
+
+.path i {
+  font-style: normal;
+  opacity: 0.4;
+}
+
+/* --------------------------------------------------------------------------
+   11. Accordion (per-device instructions, FAQ)
+   -------------------------------------------------------------------------- */
+
+.acc {
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: var(--canvas-high);
+}
+
+.acc details + details {
+  border-top: 1px solid var(--outline);
+}
+
+.acc summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.25rem clamp(1.15rem, 1rem + 0.7vw, 1.75rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.012em;
+  transition: background var(--t-fast) var(--ease);
+}
+
+.acc summary::-webkit-details-marker {
+  display: none;
+}
+
+.acc summary:hover {
+  background: color-mix(in srgb, var(--text-primary) 3%, transparent);
+}
+
+.acc__hint {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  text-align: right;
+}
+
+.acc__chev {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--text-secondary);
+  transition: transform var(--t-normal) var(--ease);
+}
+
+.acc details[open] .acc__chev {
+  transform: rotate(180deg);
+}
+
+.acc__body {
+  padding: 0 clamp(1.15rem, 1rem + 0.7vw, 1.75rem) 1.5rem;
+  max-width: 78ch;
+}
+
+.acc__body ol,
+.acc__body ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.6rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.acc__body li::marker {
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+}
+
+.acc__body b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.acc__body > p {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.acc__body > p:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   12. Tables
+   -------------------------------------------------------------------------- */
+
+.tablewrap {
+  overflow-x: auto;
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  background: var(--canvas-high);
+}
+
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  min-width: 520px;
+}
+
+table.data th,
+table.data td {
+  text-align: left;
+  padding: 1rem 1.25rem;
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+table.data thead th {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--outline);
+  white-space: nowrap;
+}
+
+table.data tbody tr + tr td {
+  border-top: 1px solid var(--outline);
+}
+
+table.data td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+table.data td.desc {
+  color: var(--text-secondary);
+  font-weight: 400;
+  white-space: normal;
+}
+
+.tier {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 5px;
+  border: 1px solid var(--outline);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.tier--req {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+/* On ink the canvas-world colours vanish into the background. "Required" has to
+   be the loudest thing in its column, so it inverts to a filled chip rather
+   than merely swapping its ink for canvas. */
+.ink .tier {
+  border-color: var(--outline-on-ink);
+  color: var(--text-on-ink-dim);
+}
+
+.ink .tier--req {
+  background: var(--text-on-ink);
+  border-color: var(--text-on-ink);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* The table on ink needs its own separators and text colours too. */
+.ink .tablewrap {
+  background: var(--ink-soft);
+  border-color: var(--outline-on-ink);
+}
+
+.ink table.data thead th {
+  color: var(--text-on-ink-dim);
+  border-bottom-color: var(--outline-on-ink);
+}
+
+.ink table.data tbody tr + tr td {
+  border-top-color: var(--outline-on-ink);
+}
+
+.ink table.data td:first-child {
+  color: var(--text-on-ink);
+}
+
+.ink table.data td.desc {
+  color: var(--text-on-ink-dim);
+}
+
+/* --------------------------------------------------------------------------
+   13. Code blocks
+   -------------------------------------------------------------------------- */
+
+.code {
+  position: relative;
+  background: var(--ink);
+  color: var(--text-on-ink);
+  border-radius: var(--r-card-sm);
+  padding: 1.15rem 1.3rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.75;
+  border: 1px solid var(--outline-on-ink);
+}
+
+.code pre {
+  margin: 0;
+  font: inherit;
+}
+
+.code .c {
+  color: var(--text-on-ink-dim);
+}
+
+.code .p {
+  color: var(--text-on-ink-dim);
+  user-select: none;
+}
+
+.copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid var(--outline-on-ink);
+  background: var(--ink-soft);
+  color: var(--text-on-ink-dim);
+  border-radius: 7px;
+  padding: 5px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease);
+}
+
+.copy:hover {
+  color: var(--text-on-ink);
+  border-color: var(--text-on-ink-dim);
+}
+
+.hash {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.7;
+  word-break: break-all;
+  color: var(--text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   14. Download hero
+   -------------------------------------------------------------------------- */
+
+.dl {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.78fr);
+  gap: clamp(2rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+}
+
+.dl__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--outline);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.fact {
+  background: var(--canvas-high);
+  padding: 1.15rem 1.3rem;
+}
+
+.fact__k {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.fact__v {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.025em;
+}
+
+.fact__v small {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0;
+  font-family: var(--font-body);
+  margin-left: 0.35em;
+}
+
+@media (max-width: 860px) {
+  .dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. CTA band
+   -------------------------------------------------------------------------- */
+
+.band {
+  text-align: center;
+  padding-block: clamp(4rem, 2.5rem + 6vw, 7.5rem);
+}
+
+.band .t-section {
+  max-width: 18ch;
+  margin-inline: auto;
+}
+
+.band .t-lead {
+  max-width: 46ch;
+  margin: 1.5rem auto 0;
+}
+
+.band__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   16. Prose (privacy / terms)
+   -------------------------------------------------------------------------- */
+
+.prose {
+  max-width: 68ch;
+}
+
+.prose h2 {
+  font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.prose h3 {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2rem;
+  margin-bottom: 0.6rem;
+}
+
+.prose p,
+.prose li {
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.prose ul {
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.5rem;
+  margin: 0 0 1.25rem;
+}
+
+.prose a {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--outline);
+}
+
+.prose a:hover {
+  text-decoration-color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   17. Video slot — used only where a recording adds something a drawing can't
+   -------------------------------------------------------------------------- */
+
+.slot {
+  position: relative;
+  border-radius: var(--r-card-sm);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--text-primary) 4%, transparent);
+  border: 1px dashed var(--outline);
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.slot video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slot__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.slot__label b {
+  display: block;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}

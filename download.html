@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download AURA for Android — install guide</title>
+<meta name="description" content="Download AURA for Android and set it up in about five minutes. Every step, including Play Protect, Android's Restricted Settings, and the extra switches Xiaomi, OPPO, vivo and Huawei phones add.">
+<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151311" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Download AURA for Android">
+<meta property="og:description" content="Install in about five minutes — including the permission screens Android hides from sideloaded apps.">
+<meta property="og:image" content="assets/media/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/media/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/aura.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+
+<script>
+  try { var t = localStorage.getItem("aura-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="brand" href="index.html" aria-label="AURA home">
+      <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor"/>
+        <path d="M10 22.5 16 9.5l6 13" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.8 18.4h6.4" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      AURA
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#what">What it does</a>
+      <a href="index.html#safety">Safety</a>
+      <a href="mcp.html">For developers</a>
+      <a href="download.html" aria-current="page">Download</a>
+    </nav>
+    <button class="icon-btn theme-btn" type="button" aria-label="Switch theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2 12h2M20 12h2M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ==================================================================
+     DOWNLOAD
+     ================================================================== -->
+<section class="section" style="padding-bottom:clamp(2.5rem,2rem+2vw,4rem)">
+  <div class="wrap dl">
+
+    <div>
+      <p class="eyebrow"><span class="eyebrow__som">01</span> Download</p>
+      <h1 class="t-section">Get AURA on your phone</h1>
+      <p class="t-lead" style="margin-top:1.25rem;max-width:44ch">
+        One file, installed directly. Budget about five minutes — most of it is Android
+        asking whether you're sure, which it should.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2rem">
+        <a class="btn btn--blood btn--lg"
+           href="https://github.com/Dinesh210805/aura-releases/releases/download/v1.0.291/aura-1.0.291.apk"
+           data-rel-href
+           download>
+          Download the APK
+          <span class="btn__meta" data-rel="size">221 MB</span>
+        </a>
+        <a class="btn btn--ghost btn--lg" href="https://github.com/Dinesh210805/aura-releases/releases" rel="noopener">
+          All releases
+        </a>
+      </div>
+
+      <p class="hero__meta" style="margin-top:1.4rem">
+        <span>Free</span><span>No account</span><span>No subscription</span>
+      </p>
+    </div>
+
+    <div class="dl__facts" data-reveal>
+      <div class="fact">
+        <div class="fact__k">Version</div>
+        <div class="fact__v" data-rel="version">1.0.291</div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">Released</div>
+        <div class="fact__v" data-rel="date">30 Jul 2026</div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">Size</div>
+        <div class="fact__v" data-rel="size">221 MB</div>
+      </div>
+      <div class="fact">
+        <div class="fact__k">Requires</div>
+        <div class="fact__v">Android 8.0<small> or newer</small></div>
+      </div>
+      <div class="fact" style="grid-column:span 2">
+        <div class="fact__k">Processors</div>
+        <div class="fact__v" style="font-size:.95rem;font-family:var(--font-mono);letter-spacing:0">
+          arm64-v8a · armeabi-v7a · x86_64
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================================================================
+     INSTALL STEPS
+     ================================================================== -->
+<section class="section section--tight">
+  <div class="wrap">
+
+    <div class="head" data-reveal>
+      <p class="eyebrow"><span class="eyebrow__som">02</span> Install</p>
+      <h2 class="t-section">Five steps, in order</h2>
+      <p class="t-lead">
+        Android treats apps from outside the Play Store carefully. Nothing here is a
+        workaround — it's the normal path, it's just spread across screens that are easy
+        to miss. Step 4 is the one everybody gets stuck on.
+      </p>
+    </div>
+
+    <div class="steps" data-reveal>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Download the file on your phone</div>
+          <p class="step__d">
+            Tap the download button above <em>from the phone itself</em>, not from your
+            computer. The file is called
+            <code class="mono" data-rel="filename">aura-1.0.291.apk</code>.
+            It's large, so use Wi-Fi if you can.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Allow installs from your browser</div>
+          <p class="step__d">
+            When you open the downloaded file, Android says the browser isn't allowed to
+            install apps. Tap <b>Settings</b> in that message and turn on the switch — it
+            grants permission to whichever app you downloaded with, not to the whole system.
+          </p>
+          <div class="path">
+            <b>Settings</b><i>›</i><b>Apps</b><i>›</i><b>Special app access</b><i>›</i><b>Install unknown apps</b><i>›</i><b>Chrome</b>
+          </div>
+          <p class="step__d">
+            You can switch it back off after installing.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Get past Play Protect</div>
+          <p class="step__d">
+            Google scans apps it hasn't seen before and shows
+            <b>"Unsafe app blocked"</b> or <b>"App scan recommended"</b>. This is Play Protect
+            flagging an unknown developer, not a detection of anything.
+          </p>
+          <p class="step__d">
+            Tap <b>More details</b> → <b>Install anyway</b>. If you'd rather verify first,
+            check the file's fingerprint against the one published below.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Allow restricted settings — the one everyone misses</div>
+          <p class="step__d">
+            On Android 13 and newer, apps installed outside the Play Store are blocked from
+            using the Accessibility service. AURA needs it to see and touch the screen, so
+            <strong>without this step the app installs but can't do anything</strong>. When you try to
+            enable it you'll see a dialog reading
+            <em>"Restricted setting — for your security, this setting is currently unavailable."</em>
+          </p>
+          <div class="note note--critical">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            <span>
+              <strong>Do this before opening AURA's setup.</strong> Go to app info and unlock
+              restricted settings first — otherwise onboarding sends you to a switch you're
+              not allowed to flip yet, which reads like the app is broken.
+            </span>
+          </div>
+          <div class="path" style="margin-top:.9rem">
+            <b>Settings</b><i>›</i><b>Apps</b><i>›</i><b>AURA</b><i>›</i><b>⋮ (top right)</b><i>›</i><b>Allow restricted settings</b>
+          </div>
+          <p class="step__d">
+            Your phone may ask for your PIN, pattern or fingerprint — that's expected. Some
+            brands word the menu item <b>"Allow restricted setting"</b> or place it behind
+            <b>"More"</b>. If you don't see it at all, your Android version doesn't need it.
+          </p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step__n"></div>
+        <div>
+          <div class="step__t">Open AURA and follow setup</div>
+          <p class="step__d">
+            AURA asks for what it needs, one screen at a time, and explains each one before
+            the system dialog appears. It needs four things to work at all — microphone,
+            the floating bubble, the accessibility service, and its own keyboard — and asks
+            for everything else only when a task actually needs it.
+          </p>
+          <p class="step__d">
+            Last, add an AI provider key in <b>Settings → Agent Brain</b>. Groq and Google
+            Gemini both have free tiers that are enough to try it.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="slot" style="margin-top:1.25rem;aspect-ratio:16/9" data-reveal>
+      <video muted loop playsinline preload="metadata" style="display:none" poster="assets/media/install-poster.jpg">
+        <source src="assets/media/install.mp4" type="video/mp4">
+      </video>
+      <span class="slot__label">
+        <b>Video slot — install walkthrough</b>
+        Screen recording of steps 1–5, 16:9.<br>Drop in <code>assets/media/install.mp4</code>.
+      </span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================================================================
+     PER-DEVICE
+     ================================================================== -->
+<section class="section">
+  <div class="wrap">
+
+    <div class="head head--split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__som">03</span> Your phone brand</p>
+        <h2 class="t-section">Some brands add their own switches</h2>
+      </div>
+      <p class="t-lead">
+        Xiaomi, OPPO, vivo and Huawei layer extra permission gates on top of Android's.
+        The tell-tale symptom is that everything looks enabled and the floating bubble
+        still never appears. Find your brand below.
+      </p>
+    </div>
+
+    <div class="acc" data-reveal>
+
+      <details>
+        <summary>
+          Xiaomi · Redmi · POCO <span class="acc__hint">MIUI / HyperOS</span>
+          <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="acc__body">
+          <p>MIUI has a second, private overlay permission that Android's own switch doesn't cover. The app can't detect or request it — it just silently never draws. This is the most common "the bubble doesn't show up" report.</p>
+          <ol>
+            <li>Open <b>Settings → Apps → Manage apps → AURA</b></li>
+            <li>Tap <b>Other permissions</b></li>
+            <li>Turn ON <b>Display pop-up windows while running in background</b></li>
+            <li>Also turn ON <b>Display pop-up windows</b> if it is listed</li>
+            <li>Back on the app page, turn ON <b>Autostart</b> — without it AURA won't survive a reboot</li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          OPPO · realme <span class="acc__hint">ColorOS</span>
+          <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="acc__body">
+          <ol>
+            <li>Open <b>Settings → Apps → AURA → Allow floating windows</b></li>
+            <li>Turn ON <b>Allow floating windows</b> and <b>Display over other apps</b></li>
+            <li>Open <b>Settings → Battery → App battery usage → AURA → Allow background activity</b></li>
+            <li>In the <b>Phone Manager</b> app, enable <b>Auto-launch</b> for AURA</li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          vivo · iQOO <span class="acc__hint">Funtouch / OriginOS</span>
+          <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="acc__body">
+          <ol>
+            <li>Open <b>Settings → Apps → AURA → Permissions → Floating windows → Allow</b></li>
+            <li>Open <b>i Manager → App manager → Autostart manager</b> and turn ON AURA</li>
+            <li>Open <b>Settings → Battery → High background power consumption</b> and allow AURA</li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          Huawei · Honor <span class="acc__hint">EMUI / MagicOS</span>
+          <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="acc__body">
+          <ol>
+            <li>Open <b>Settings → Apps → AURA → Permissions</b> and turn ON <b>Display over other apps</b></li>
+            <li>Open <b>Settings → Battery → App launch → AURA</b> and switch to <b>Manage manually</b></li>
+            <li>Enable all three: <b>Auto-launch</b>, <b>Secondary launch</b>, <b>Run in background</b></li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          OnePlus <span class="acc__hint">OxygenOS</span>
+          <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="acc__body">
+          <p>The standard Android switches are enough for the bubble to appear. One extra step keeps AURA alive between sessions:</p>
+          <ol>
+            <li>Open <b>Settings → Battery → Battery optimisation → AURA</b> and choose <b>Don't optimise</b></li>
+            <li>If your build has it, allow AURA in <b>Settings → Apps → App auto-launch</b></li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          Samsung <span class="acc__hint">One UI</span>
+          <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="acc__body">
+          <p>No extra overlay permission needed. One UI is aggressive about sleeping apps, though:</p>
+          <ol>
+            <li>Open <b>Settings → Battery → Background usage limits</b></li>
+            <li>Make sure AURA is <b>not</b> in <b>Sleeping apps</b> or <b>Deep sleeping apps</b></li>
+            <li>Open <b>Settings → Apps → AURA → Battery</b> and choose <b>Unrestricted</b></li>
+          </ol>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          Pixel · Motorola · Nothing · stock Android <span class="acc__hint">nothing extra</span>
+          <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </summary>
+        <div class="acc__body">
+          <p>Nothing beyond the five install steps above. Stock Android has no hidden overlay gate, so once the accessibility service is on, AURA works. Do make sure <b>Restricted settings</b> is unlocked — step 4 applies to every brand.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================
+     PERMISSIONS
+     ================================================================== -->
+<section class="section ink">
+  <div class="wrap">
+    <div class="head head--wide" data-reveal>
+      <p class="eyebrow"><span class="eyebrow__som">04</span> Permissions</p>
+      <h2 class="t-section">What it asks for, and why</h2>
+      <p class="t-lead">
+        Four permissions are needed for AURA to function at all. Everything else is asked
+        for the first time a task actually needs it, and refusing simply removes that
+        ability. You can revoke any of them later in Android settings.
+      </p>
+    </div>
+
+    <div class="tablewrap" data-reveal>
+      <table class="data">
+        <thead>
+          <tr>
+            <th>Permission</th>
+            <th>When</th>
+            <th>Why AURA needs it</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Microphone</td>
+            <td><span class="tier tier--req">Required</span></td>
+            <td class="desc">Hear your voice commands and talk with you.</td>
+          </tr>
+          <tr>
+            <td>Display over other apps</td>
+            <td><span class="tier tier--req">Required</span></td>
+            <td class="desc">Show the chat bubble on top of whatever you're doing.</td>
+          </tr>
+          <tr>
+            <td>Accessibility service</td>
+            <td><span class="tier tier--req">Required</span></td>
+            <td class="desc">See the screen and perform taps, swipes and typing for you. AURA reads on-screen content only while running your tasks; banking and payment apps are always blocked.</td>
+          </tr>
+          <tr>
+            <td>AURA Keyboard</td>
+            <td><span class="tier tier--req">Required</span></td>
+            <td class="desc">Lets AURA type in every app. Many ride, delivery and food apps are built on React Native or Flutter and have no standard Android text field, so the normal typing path silently fails there. AURA's keyboard has no visible keys and never reads what you type — it switches to it only to enter your text, then switches straight back.</td>
+          </tr>
+          <tr>
+            <td>Notifications</td>
+            <td><span class="tier tier--req">Required</span></td>
+            <td class="desc">Keep you posted on task progress while AURA works in the background.</td>
+          </tr>
+          <tr>
+            <td>Contacts</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Find a contact's number on-device when you say "message Amma". Numbers never leave your phone.</td>
+          </tr>
+          <tr>
+            <td>Notification access</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Read and act on notifications — reply to messages, control media. Banking and security notifications are filtered out and never shown to the agent.</td>
+          </tr>
+          <tr>
+            <td>Photos, media &amp; files</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Search and open your files when you ask — "open the PDF I downloaded".</td>
+          </tr>
+          <tr>
+            <td>Screen capture</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Take screenshots so the agent can see screens the accessibility data can't describe. Asked once per session, the first time it's needed.</td>
+          </tr>
+          <tr>
+            <td>Camera</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Use the camera and flashlight when a task needs them.</td>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Answer "where am I" and share your location when you ask.</td>
+          </tr>
+          <tr>
+            <td>Alarms &amp; reminders</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Set alarms and timers exactly when you ask for them.</td>
+          </tr>
+          <tr>
+            <td>Unrestricted battery</td>
+            <td><span class="tier">When needed</span></td>
+            <td class="desc">Keep long tasks running when the screen is off.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================
+     VERIFY + LIMITS
+     ================================================================== -->
+<section class="section">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem">
+
+      <div class="card" data-reveal>
+        <p class="eyebrow"><span class="eyebrow__som">05</span> Verify your download</p>
+        <h2 class="t-card" style="margin-bottom:.85rem">Check the fingerprint</h2>
+        <p class="feat__body" style="margin-bottom:1.1rem">
+          Every release is signed with the same key, and this is the SHA-256 of
+          <span class="mono" data-rel="filename">aura-1.0.291.apk</span>. If yours matches, the file
+          you have is the file that was published.
+        </p>
+        <p class="hash" id="sha">DA47B9AB0F2F2481AE186646E4992E5872E22FB2A112EA43B50C8D9997EB02C8</p>
+        <div class="code" style="margin-top:1.1rem">
+          <button class="copy" type="button" data-copy="#verifycmd" data-label="Copy">Copy</button>
+          <pre id="verifycmd"><span class="c"># Windows (PowerShell)</span>
+Get-FileHash aura-1.0.291.apk -Algorithm SHA256
+
+<span class="c"># macOS / Linux</span>
+shasum -a 256 aura-1.0.291.apk</pre>
+        </div>
+      </div>
+
+      <div class="card" data-reveal style="--reveal-delay:60ms">
+        <p class="eyebrow"><span class="eyebrow__som">06</span> Known limits</p>
+        <h2 class="t-card" style="margin-bottom:.85rem">What this build can't do yet</h2>
+        <ul style="margin:0;padding-left:1.15rem;display:grid;gap:.85rem;font-size:.9375rem;line-height:1.6;color:var(--text-secondary)">
+          <li>
+            <b style="color:var(--text-primary)">No automatic updates.</b> Apps installed outside
+            the Play Store can't update themselves. AURA shows a banner when a new version
+            exists and links back here.
+          </li>
+          <li>
+            <b style="color:var(--text-primary)">Same network only</b> for the developer MCP
+            feature. Your phone and computer must be on the same Wi-Fi — connecting across
+            networks needs a relay that isn't set up yet.
+          </li>
+          <li>
+            <b style="color:var(--text-primary)">Large download.</b> One universal file carrying
+            on-device models and three processor architectures. Per-processor builds are
+            planned and will cut it to roughly a third.
+          </li>
+          <li>
+            <b style="color:var(--text-primary)">Not on the Play Store yet.</b> Which is why the
+            install has five steps instead of one.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================================
+     TROUBLESHOOTING
+     ================================================================== -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="head" data-reveal>
+      <p class="eyebrow"><span class="eyebrow__som">07</span> If something's wrong</p>
+      <h2 class="t-section">Three symptoms, three causes</h2>
+    </div>
+
+    <div class="acc" data-reveal>
+      <details>
+        <summary>The bubble never appears<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="acc__body">
+          <p>Almost always a brand-specific overlay gate rather than Android's. The permission reads as granted because Android thinks it is — your manufacturer added a second switch behind it. Find your brand in the section above; Xiaomi, OPPO, vivo, Huawei and Honor all do this.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Accessibility won't turn on<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="acc__body">
+          <p>That's Restricted settings — step 4. Go to <b>Settings → Apps → AURA → ⋮ → Allow restricted settings</b>, confirm with your PIN, then try the accessibility switch again. The switch will simply refuse until you do.</p>
+        </div>
+      </details>
+      <details>
+        <summary>AURA stops working after a while, or after restarting<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="acc__body">
+          <p>Battery management killed it. Set AURA's battery usage to <b>Unrestricted</b> (or <b>Don't optimise</b>), and on Xiaomi, OPPO, vivo, Huawei and Honor also enable <b>Autostart</b> / <b>Auto-launch</b> — that's the switch that decides whether it survives a reboot.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Still stuck<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="acc__body">
+          <p>Open <b>Settings → Permissions health</b> inside the app — it shows exactly which permission is missing and takes you straight to the right screen. If that doesn't explain it, email <a href="mailto:dinesh210805@gmail.com" style="text-decoration:underline;text-underline-offset:3px">dinesh210805@gmail.com</a> with your phone model and Android version.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="band ink">
+  <div class="wrap">
+    <h2 class="t-section">Ready when you are.</h2>
+    <p class="t-lead">Free, no account, and you can uninstall it like any other app.</p>
+    <div class="band__cta">
+      <a class="btn btn--blood btn--lg"
+         href="https://github.com/Dinesh210805/aura-releases/releases/download/v1.0.291/aura-1.0.291.apk"
+         data-rel-href download>
+        Download the APK
+        <span class="btn__meta" data-rel="size">221 MB</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <a class="brand" href="index.html" style="margin-bottom:1rem">
+          <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor"/>
+            <path d="M10 22.5 16 9.5l6 13" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.8 18.4h6.4" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+          AURA
+        </a>
+        <p style="font-size:.875rem;color:var(--text-secondary);max-width:30ch;margin:0">
+          An on-device assistant that sees your screen and works your apps for you.
+        </p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="download.html">Download</a></li>
+          <li><a href="index.html#what">What it does</a></li>
+          <li><a href="index.html#safety">Safety</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Developers</h4>
+        <ul>
+          <li><a href="mcp.html">MCP setup</a></li>
+          <li><a href="https://www.npmjs.com/package/aura-mcp-connect" rel="noopener">aura-mcp-connect</a></li>
+          <li><a href="https://github.com/Dinesh210805/aura-releases/releases" rel="noopener">All releases</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="privacy.html#terms">Terms</a></li>
+          <li><a href="mailto:dinesh210805@gmail.com">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__note">
+      <span>© 2026 AURA. Built in India.</span>
+      <span class="mono" style="font-size:.75rem">
+        v<span data-rel="version">1.0.291</span> · released <span data-rel="date">30 Jul 2026</span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/aura.js" defer></script>
+</body>
+</html>

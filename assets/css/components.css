@@ -1,0 +1,913 @@
+/* ==========================================================================
+   AURA — components
+   Depends on aura.css for tokens. Load second.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Hero
+   --------------------------------------------------------------------------
+   Asymmetric, not centred. The thesis sits left and reads as a sentence; the
+   phone sits right and *demonstrates* the thesis. The demonstration is the
+   hero, not an illustration beside it.
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding-block: clamp(2.5rem, 1.5rem + 3vw, 4.25rem) clamp(3.5rem, 2rem + 5vw, 6rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: clamp(2.5rem, 1rem + 4vw, 4.5rem);
+  align-items: center;
+}
+
+.hero__title em {
+  font-style: normal;
+  position: relative;
+  white-space: nowrap;
+}
+
+/* The underline is drawn, not typeset — the same hairline the app uses to
+   bound an element it has recognised. */
+.hero__title em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.1em;
+  height: 0.055em;
+  background: var(--blood);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: rule-in 900ms var(--ease-out-expo) 700ms forwards;
+}
+
+@keyframes rule-in {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero__lead {
+  margin-top: 1.75rem;
+  max-width: 34ch;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2.5rem;
+}
+
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Direct children only — a descendant selector here would also decorate the
+   nested <span data-rel> and print two bullets for one fact. */
+.hero__meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.hero__meta > span::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.55;
+  flex: none;
+}
+
+@media (max-width: 940px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .hero__lead {
+    max-width: 46ch;
+  }
+
+  .hero__stage {
+    justify-self: center;
+  }
+}
+
+/* Below this width the two CTAs read as a mismatched pair when they size to
+   their labels, so give them equal footing instead. */
+@media (max-width: 560px) {
+  .hero__cta,
+  .band__cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero__cta .btn,
+  .band__cta .btn {
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. THE SIGNATURE — Set-of-Marks phone
+   --------------------------------------------------------------------------
+   What AURA actually does, rendered as the hero. Every tappable thing on a
+   screen gets a numbered box; the agent then names a number instead of
+   guessing a coordinate. The red box is the one it chose — the only correct
+   use of red in this system.
+   -------------------------------------------------------------------------- */
+
+.phone {
+  position: relative;
+  width: min(262px, 72vw);
+  aspect-ratio: 9 / 18;
+  margin-inline: auto;
+  border-radius: 38px;
+  background: var(--ink);
+  padding: 9px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06), 0 30px 60px -22px rgba(0, 0, 0, 0.4),
+    0 6px 18px -8px rgba(0, 0, 0, 0.18);
+}
+
+.phone__screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  background: #f2f1ed;
+  isolation: isolate;
+}
+
+:root[data-theme="dark"] .phone__screen {
+  background: #24211d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .phone__screen {
+    background: #24211d;
+  }
+}
+
+/* When a real video is dropped in, it covers the mock entirely. */
+.phone__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 3;
+}
+
+/* --- the mock UI being perceived ---------------------------------------- */
+
+.mockui {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  z-index: 1;
+}
+
+.mockui__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 6px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.mockui__app {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px 12px;
+  border-bottom: 1px solid var(--outline);
+}
+
+.mockui__avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--ink);
+  flex: none;
+}
+
+.mockui__name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.mockui__sub {
+  font-size: 8.5px;
+  color: var(--text-secondary);
+  line-height: 1.2;
+}
+
+.mockui__thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  justify-content: flex-end;
+}
+
+.bubble {
+  max-width: 76%;
+  padding: 8px 11px;
+  border-radius: 14px;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.bubble--them {
+  align-self: flex-start;
+  background: var(--canvas-high);
+  border: 1px solid var(--outline);
+  color: var(--text-primary);
+  border-bottom-left-radius: 5px;
+}
+
+.bubble--me {
+  align-self: flex-end;
+  background: var(--ink);
+  color: var(--text-on-ink);
+  border-bottom-right-radius: 5px;
+}
+
+.mockui__compose {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 16px;
+}
+
+.mockui__field {
+  flex: 1;
+  height: 30px;
+  border-radius: var(--r-pill);
+  background: var(--canvas-high);
+  border: 1px solid var(--outline);
+  display: flex;
+  align-items: center;
+  padding-inline: 12px;
+  font-size: 9.5px;
+  color: var(--text-primary);
+}
+
+.mockui__send {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ink);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.mockui__send svg {
+  width: 13px;
+  height: 13px;
+  color: var(--text-on-ink);
+}
+
+/* The text types itself, because that is the step AURA is performing. */
+.typed {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 1.5s steps(24, end) 3.1s both;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* --- the Set-of-Marks overlay ------------------------------------------- */
+
+/* Each mark is a child of the element it marks, inset slightly outside it.
+   Anchoring to the real box rather than to hand-tuned coordinates means the
+   overlay stays aligned at every viewport width — which is, not incidentally,
+   the same reason the agent addresses elements by id instead of by pixel. */
+.mockui__app,
+.bubble,
+.mockui__field,
+.mockui__send {
+  position: relative;
+}
+
+.mark {
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid var(--ink);
+  border-radius: 7px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+  animation: mark-in 420ms var(--ease-out-expo) var(--in, 0s) forwards;
+}
+
+.mark::before {
+  content: attr(data-id);
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  min-width: 14px;
+  height: 13px;
+  padding-inline: 3px;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--canvas-high);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 6px 0 6px 0;
+}
+
+:root[data-theme="dark"] .mark {
+  border-color: var(--text-on-ink);
+}
+
+:root[data-theme="dark"] .mark::before {
+  background: var(--text-on-ink);
+  color: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .mark {
+    border-color: var(--text-on-ink);
+  }
+  :root:not([data-theme="light"]) .mark::before {
+    background: var(--text-on-ink);
+    color: var(--ink);
+  }
+}
+
+@keyframes mark-in {
+  from {
+    opacity: 0;
+    transform: scale(1.16);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* The chosen element. Red = "look here now", exactly as the app defines it —
+   the only place on this page red carries meaning rather than emphasis. */
+.mark--picked {
+  animation: mark-in 420ms var(--ease-out-expo) var(--in, 0s) forwards,
+    mark-pick 560ms var(--ease-out-expo) 2.6s forwards;
+}
+
+@keyframes mark-pick {
+  to {
+    border-color: var(--blood);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--blood) 15%, transparent);
+    background: color-mix(in srgb, var(--blood) 12%, transparent);
+  }
+}
+
+.mark--picked::before {
+  animation: mark-pick-tag 560ms var(--ease-out-expo) 2.6s forwards;
+}
+
+@keyframes mark-pick-tag {
+  to {
+    background: var(--blood);
+    color: #fff;
+  }
+}
+
+.narrate b {
+  font-weight: 700;
+  color: #fff;
+  background: var(--blood);
+  border-radius: 3px;
+  padding: 1px 4px;
+  margin-left: 1px;
+}
+
+/* --- the narration pill ------------------------------------------------- */
+
+/* The notch pill. This is where the app itself puts its narration while a task
+   is running, so the hero shows the real thing rather than an invented HUD. */
+.narrate {
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  transform: translateX(-50%) translateY(-6px) scale(0.94);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 9px;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--text-on-ink);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  animation: narrate-in 520ms var(--ease-out-expo) 3.1s forwards;
+  box-shadow: 0 6px 20px -6px rgba(0, 0, 0, 0.55);
+}
+
+:root[data-theme="dark"] .narrate {
+  background: #000;
+  border: 1px solid var(--outline-on-ink);
+}
+
+@keyframes narrate-in {
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.narrate__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blood);
+  flex: none;
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+/* A caption outside the frame, so the animation never has to be self-explaining. */
+.stage-caption {
+  margin-top: 1.4rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+  max-width: 40ch;
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   3. Logo strip / client row
+   -------------------------------------------------------------------------- */
+
+.strip {
+  border-block: 1px solid var(--outline);
+  padding-block: 1.5rem;
+}
+
+.strip__in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 2.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.strip__label {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.6875rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   4. Section heads
+   -------------------------------------------------------------------------- */
+
+.head {
+  max-width: 46ch;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.head--wide {
+  max-width: 60ch;
+}
+
+.head .t-lead {
+  margin-top: 1.25rem;
+}
+
+.head--split {
+  max-width: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  align-items: end;
+}
+
+.head--split .t-lead {
+  margin-top: 0;
+  padding-bottom: 0.35rem;
+}
+
+@media (max-width: 800px) {
+  .head--split {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. Feature grid — deliberately uneven
+   --------------------------------------------------------------------------
+   A uniform 3-up card grid is the template answer. These spans encode
+   importance: the two things that make AURA different get the wide cells.
+   -------------------------------------------------------------------------- */
+
+.feat {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+
+.feat__item {
+  grid-column: span 2;
+  background: var(--canvas-high);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  padding: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: border-color var(--t-normal) var(--ease), transform var(--t-normal) var(--ease);
+}
+
+.feat__item:hover {
+  border-color: color-mix(in srgb, var(--text-primary) 34%, transparent);
+  transform: translateY(-2px);
+}
+
+.feat__item--wide {
+  grid-column: span 3;
+}
+
+.feat__item--full {
+  grid-column: span 6;
+}
+
+.feat__item--ink {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--text-on-ink);
+}
+
+.feat__item--ink .feat__body {
+  color: var(--text-on-ink-dim);
+}
+
+.feat__item--ink .feat__tag {
+  color: var(--text-on-ink-dim);
+  border-color: var(--outline-on-ink);
+}
+
+.feat__tag {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border: 1px solid var(--outline);
+  border-radius: 5px;
+  padding: 3px 7px;
+  line-height: 1.4;
+}
+
+.feat__body {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.feat__art {
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .feat {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feat__item,
+  .feat__item--wide,
+  .feat__item--full {
+    grid-column: span 2;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   6. Small inline artwork
+   -------------------------------------------------------------------------- */
+
+/* A tool-name cloud, using the real registered names. */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tools code {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--text-primary) 6%, transparent);
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.feat__item--ink .tools code {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-on-ink-dim);
+}
+
+.tools code[data-hot] {
+  color: var(--text-primary);
+  border-color: var(--outline);
+  background: var(--canvas-high);
+}
+
+.feat__item--ink .tools code[data-hot] {
+  color: var(--text-on-ink);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: transparent;
+}
+
+/* A two-track perception diagram, in miniature. */
+.tracks {
+  display: grid;
+  gap: 7px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.01em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.track__bar {
+  height: 6px;
+  border-radius: 3px;
+  flex: none;
+}
+
+/* Widths are proportional to how much of a screen each track can account for,
+   not decorative: the tree is exact but partial, vision covers the rest. */
+.track__bar--a {
+  width: 62px;
+  background: var(--text-primary);
+}
+
+.track__bar--b {
+  width: 104px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--text-secondary) 0 3px,
+    transparent 3px 6px
+  );
+}
+
+.feat__item--ink .track__bar--a {
+  background: var(--text-on-ink);
+}
+
+.feat__item--ink .track__bar--b {
+  background: repeating-linear-gradient(90deg, var(--text-on-ink-dim) 0 3px, transparent 3px 6px);
+}
+
+/* --------------------------------------------------------------------------
+   7. Process — perceive / act / verify
+   --------------------------------------------------------------------------
+   Numbered here because it genuinely IS a sequence, and the loop-back is the
+   point: the agent re-perceives after acting instead of assuming it worked.
+   -------------------------------------------------------------------------- */
+
+.loop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--outline-on-ink);
+  border: 1px solid var(--outline-on-ink);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+.loop__step {
+  background: var(--ink);
+  padding: clamp(1.5rem, 1.2rem + 1.4vw, 2.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.loop__n {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--text-on-ink-dim);
+}
+
+.loop__t {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-on-ink);
+}
+
+.loop__d {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-on-ink-dim);
+  margin: 0;
+}
+
+.loop__back {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--text-on-ink-dim);
+}
+
+.loop__back svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+@media (max-width: 780px) {
+  .loop {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Safety list
+   -------------------------------------------------------------------------- */
+
+/* Explicitly 3-up, not auto-fit: there are exactly six guards, and auto-fit
+   would pick 4 columns at this width and leave two cells showing the grid's
+   own background as a grey slab. */
+.guards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--outline);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+
+@media (max-width: 940px) {
+  .guards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .guards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.guard {
+  background: var(--canvas);
+  padding: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+}
+
+.guard__k {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+}
+
+.guard__k svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.guard__t {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.022em;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.guard__d {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.guard__d code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   9. Callouts
+   -------------------------------------------------------------------------- */
+
+.note {
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card-sm);
+  padding: 1.15rem 1.35rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  background: var(--canvas-high);
+  display: flex;
+  gap: 12px;
+}
+
+.note svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+  margin-top: 3px;
+  color: var(--text-primary);
+}
+
+/* The one warning that stops an install dead. Red because the app's rule says
+   red means "look here now", and nothing on this site needs it more. */
+.note--critical {
+  background: var(--blood-container);
+  border-color: color-mix(in srgb, var(--blood) 26%, transparent);
+  color: var(--blood-on-container);
+}
+
+.note--critical svg {
+  color: var(--blood);
+}
+
+.note--critical strong {
+  color: var(--blood-on-container);
+}
