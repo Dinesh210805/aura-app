@@ -98,6 +98,49 @@ by hand each release, or delete the block.
 
 ---
 
+## Interactive behaviour
+
+Everything below is progressive enhancement — each page is complete and
+navigable with JavaScript off, and nothing is hidden from a visitor because a
+guess about their device went wrong.
+
+| Feature | What it does | Without JS |
+|---|---|---|
+| **Mobile nav** | Header collapses to a full-screen panel under 860px | Button is hidden entirely (`:root[data-js]`), footer link lists still reach every page |
+| **Brand picker** | Chips above the per-brand accordion — one tap instead of scanning seven rows | Picker ships `hidden`; the native `<details>` accordion is the baseline |
+| **Device detection** | Pre-opens your brand's section and badges the chip "your phone" | No detection, nothing pre-opened |
+| **Checkable steps** | Tap a step number to tick it; progress persists in `localStorage` | Plain numbered steps |
+| **Desktop handoff** | On a computer, explains the APK won't install and offers the address to open on a phone | Card shows (harmless and true on both) |
+| **Android button label** | "Download the APK" becomes "Install on this phone" | Reads "Download the APK" |
+
+### Why device detection is only ever a hint
+
+Chrome's User-Agent Reduction reports the Android model as the literal string
+`K`, and `userAgentData` returns bare codes like `2201123G` or `CPH2451` that
+often contain no brand name. So `brandFrom()` returns `null` far more often
+than it guesses, by design — a wrong guess must never cost anything. Every
+brand stays one tap away in the picker regardless, and when detection does
+fire, the note under the chips says so and invites correction.
+
+The matching order mirrors the app's own `OemCompat.detect()`: **OnePlus is
+tested before OPPO**, because OxygenOS devices report OPPO-style `CPH` model
+codes and would otherwise be misfiled.
+
+### No QR code, deliberately
+
+The obvious desktop→phone affordance is a QR. It isn't here because there is no
+QR encoder in this stack and no way to verify a hand-written one — an
+unscannable QR looks perfect and fails silently, which is worse than none. To
+add one properly:
+
+```bash
+pip install segno
+python -c "import segno; segno.make('https://dinesh210805.github.io/aura/download.html').save('site/assets/media/qr.svg', scale=8, border=2, dark='#0A0A0A', light=None)"
+```
+
+Then drop it into the `.handoff` block on `download.html` — **and scan it once
+with a real phone before shipping.**
+
 ## Adding videos
 
 Every visual on the site is drawn in CSS/SVG, so it is complete as-is. Video

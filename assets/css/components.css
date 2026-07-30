@@ -729,6 +729,78 @@
 }
 
 /* --------------------------------------------------------------------------
+   6b. Things to say
+   --------------------------------------------------------------------------
+   The gap this closes: someone finishes the install, opens the app, and has no
+   idea what a sentence to it looks like. Real commands, grouped by what the
+   person wants — not by which tool answers them.
+   -------------------------------------------------------------------------- */
+
+.say {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: 14px;
+}
+
+.say__group {
+  background: var(--canvas-high);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  padding: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+}
+
+.say__cat {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.say__cat svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.say__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.say__q {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.022em;
+  line-height: 1.35;
+  color: var(--text-primary);
+  padding-left: 1.1rem;
+  position: relative;
+  text-wrap: pretty;
+}
+
+/* A spoken line, marked as one. The quote sits in the margin so the sentences
+   stay optically aligned with each other rather than with their punctuation. */
+.say__q::before {
+  content: "“";
+  position: absolute;
+  left: 0;
+  top: -0.1em;
+  font-size: 1.5em;
+  line-height: 1;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* --------------------------------------------------------------------------
    7. Process — perceive / act / verify
    --------------------------------------------------------------------------
    Numbered here because it genuinely IS a sequence, and the loop-back is the

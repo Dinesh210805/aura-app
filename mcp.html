@@ -24,6 +24,11 @@
 
 <script>
   try { var t = localStorage.getItem("aura-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  // Set before first paint so desktop-only blocks never flash on a phone.
+  if (/android/i.test(navigator.userAgent)) {
+    document.documentElement.setAttribute("data-android", "");
+  }
+  document.documentElement.setAttribute("data-js", "");
 </script>
 </head>
 
@@ -46,6 +51,11 @@
       <a href="mcp.html" aria-current="page">For developers</a>
       <a href="download.html">Download</a>
     </nav>
+    <button class="icon-btn nav-btn" type="button" aria-label="Open menu"
+            aria-expanded="false" aria-controls="mobilenav">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+    </button>
     <button class="icon-btn theme-btn" type="button" aria-label="Switch theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2 12h2M20 12h2M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
@@ -53,6 +63,17 @@
     <a class="btn btn--ink" href="download.html">Get AURA</a>
   </div>
 </header>
+
+<nav class="mnav" id="mobilenav" aria-label="Main" tabindex="-1" hidden>
+  <a href="index.html">Home</a>
+  <a href="index.html#what">What it does</a>
+  <a href="index.html#say">Things to say</a>
+  <a href="index.html#safety">Safety</a>
+  <a href="mcp.html" aria-current="page">For developers</a>
+  <a href="privacy.html">Privacy</a>
+  <p class="mnav__note">FREE &middot; NO ACCOUNT &middot; ANDROID 8.0+</p>
+  <a class="btn btn--blood" href="download.html">Download AURA</a>
+</nav>
 
 <main id="main">
 
@@ -120,7 +141,7 @@
       </p>
     </div>
 
-    <div class="steps" data-reveal>
+    <div class="steps" data-reveal data-checklist="mcp">
 
       <div class="step">
         <div class="step__n"></div>

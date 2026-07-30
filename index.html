@@ -30,6 +30,11 @@
     var t = localStorage.getItem("aura-theme");
     if (t) document.documentElement.setAttribute("data-theme", t);
   } catch (e) {}
+  // Set before first paint so desktop-only blocks never flash on a phone.
+  if (/android/i.test(navigator.userAgent)) {
+    document.documentElement.setAttribute("data-android", "");
+  }
+  document.documentElement.setAttribute("data-js", "");
 </script>
 </head>
 
@@ -49,11 +54,16 @@
 
     <nav class="nav" aria-label="Main">
       <a href="#what">What it does</a>
+      <a href="#say">Things to say</a>
       <a href="#safety">Safety</a>
       <a href="mcp.html">For developers</a>
-      <a href="#faq">FAQ</a>
     </nav>
 
+    <button class="icon-btn nav-btn" type="button" aria-label="Open menu"
+            aria-expanded="false" aria-controls="mobilenav">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+    </button>
     <button class="icon-btn theme-btn" type="button" aria-label="Switch theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2 12h2M20 12h2M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
@@ -62,6 +72,17 @@
     <a class="btn btn--ink" href="download.html">Get AURA</a>
   </div>
 </header>
+
+<nav class="mnav" id="mobilenav" aria-label="Main" tabindex="-1" hidden>
+  <a href="index.html" aria-current="page">Home</a>
+  <a href="index.html#what">What it does</a>
+  <a href="index.html#say">Things to say</a>
+  <a href="index.html#safety">Safety</a>
+  <a href="mcp.html">For developers</a>
+  <a href="privacy.html">Privacy</a>
+  <p class="mnav__note">FREE &middot; NO ACCOUNT &middot; ANDROID 8.0+</p>
+  <a class="btn btn--blood" href="download.html">Download AURA</a>
+</nav>
 
 <main id="main">
 
@@ -300,12 +321,96 @@
 </section>
 
 <!-- ==================================================================
+     THINGS TO SAY
+     Closes the "I installed it, now what?" gap. Grouped by what the person
+     wants, not by which tool serves it.
+     ================================================================== -->
+<section class="section" id="say">
+  <div class="wrap">
+
+    <div class="head head--split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__som">03</span> Things to say</p>
+        <h2 class="t-section">Talk to it like a person, not a remote.</h2>
+      </div>
+      <p class="t-lead">
+        There are no magic words and nothing to memorise. Say what you want the way
+        you'd say it to a friend holding your phone — and if it needs to know something,
+        it asks.
+      </p>
+    </div>
+
+    <div class="say">
+
+      <div class="say__group" data-reveal>
+        <div class="say__cat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>
+          Messages
+        </div>
+        <ul class="say__list">
+          <li class="say__q">Message Amma I'm running ten minutes late</li>
+          <li class="say__q">What did Ravi say?</li>
+          <li class="say__q">Reply to that and tell him I'll call back</li>
+        </ul>
+      </div>
+
+      <div class="say__group" data-reveal style="--reveal-delay:60ms">
+        <div class="say__cat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Getting around
+        </div>
+        <ul class="say__list">
+          <li class="say__q">Book a Rapido to office</li>
+          <li class="say__q">Navigate to Cubbon Park</li>
+          <li class="say__q">Where am I right now?</li>
+        </ul>
+      </div>
+
+      <div class="say__group" data-reveal style="--reveal-delay:120ms">
+        <div class="say__cat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+          The phone itself
+        </div>
+        <ul class="say__list">
+          <li class="say__q">Set an alarm for six thirty</li>
+          <li class="say__q">Pause the music</li>
+          <li class="say__q">Put a ten minute timer on</li>
+        </ul>
+      </div>
+
+      <div class="say__group" data-reveal style="--reveal-delay:180ms">
+        <div class="say__cat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/></svg>
+          Finding things
+        </div>
+        <ul class="say__list">
+          <li class="say__q">Open the PDF I downloaded yesterday</li>
+          <li class="say__q">Order my usual from Swiggy</li>
+          <li class="say__q">What's on my screen?</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <p class="note" style="margin-top:1.25rem" data-reveal>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>
+        You can type instead of talking, and you can stop a task at any time from the
+        bubble. If AURA can't do something it says so — it won't quietly report success
+        for a task that didn't happen.
+      </span>
+    </p>
+
+  </div>
+</section>
+
+<!-- ==================================================================
      THE LOOP — numbered because it genuinely is a sequence
      ================================================================== -->
 <section class="section ink">
   <div class="wrap">
     <div class="head head--wide" data-reveal>
-      <p class="eyebrow"><span class="eyebrow__som">03</span> How it works</p>
+      <p class="eyebrow"><span class="eyebrow__som">04</span> How it works</p>
       <h2 class="t-section">Look. Act. Look again.</h2>
       <p class="t-lead">
         The reason most phone automation breaks is that it assumes the tap worked.
@@ -356,7 +461,7 @@
 
     <div class="head head--split" data-reveal>
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">04</span> Safety</p>
+        <p class="eyebrow"><span class="eyebrow__som">05</span> Safety</p>
         <h2 class="t-section">You're handing it your phone. Here's what it can't do.</h2>
       </div>
       <p class="t-lead">
@@ -464,7 +569,7 @@
   <div class="wrap">
     <div class="card" data-reveal style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:center">
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">05</span> For developers</p>
+        <p class="eyebrow"><span class="eyebrow__som">06</span> For developers</p>
         <h2 class="t-card" style="font-size:clamp(1.4rem,1.1rem+1.2vw,2rem);margin-bottom:.85rem">
           Your phone is also an MCP server
         </h2>
@@ -485,7 +590,7 @@
 <section class="section" id="faq">
   <div class="wrap">
     <div class="head" data-reveal>
-      <p class="eyebrow"><span class="eyebrow__som">06</span> Questions</p>
+      <p class="eyebrow"><span class="eyebrow__som">07</span> Questions</p>
       <h2 class="t-section">The things people ask first</h2>
     </div>
 
@@ -557,7 +662,7 @@
      ================================================================== -->
 <section class="band ink">
   <div class="wrap">
-    <p class="eyebrow" style="justify-content:center"><span class="eyebrow__som">07</span> Get started</p>
+    <p class="eyebrow" style="justify-content:center"><span class="eyebrow__som">08</span> Get started</p>
     <h2 class="t-section">Give it something to do.</h2>
     <p class="t-lead">
       Free, no account, about five minutes to set up — including the permission

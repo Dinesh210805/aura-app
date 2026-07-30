@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — AURA</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151311" media="(prefers-color-scheme: dark)">
+
+<link rel="icon" href="assets/media/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/aura.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+
+<script>
+  try { var t = localStorage.getItem("aura-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  document.documentElement.setAttribute("data-js", "");
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="brand" href="index.html" aria-label="AURA home">
+      <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="9" fill="currentColor"/>
+        <path d="M10 22.5 16 9.5l6 13" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12.8 18.4h6.4" stroke="var(--canvas)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      AURA
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html#what">What it does</a>
+      <a href="index.html#say">Things to say</a>
+      <a href="index.html#safety">Safety</a>
+      <a href="mcp.html">For developers</a>
+    </nav>
+    <button class="icon-btn theme-btn" type="button" aria-label="Switch theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2 12h2M20 12h2M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+    <a class="btn btn--ink" href="download.html">Get AURA</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="section" style="min-height:62vh;display:grid;align-items:center">
+  <div class="wrap">
+
+    <!-- An empty screen is an invitation to act, so this page offers the two
+         things someone who mistyped a URL was probably looking for. -->
+    <div style="max-width:50ch">
+      <p class="eyebrow"><span class="eyebrow__som">404</span> Page not found</p>
+      <h1 class="t-section">Nothing here.</h1>
+      <p class="t-lead" style="margin-top:1.35rem">
+        The address doesn't match a page on this site. It may have moved, or the link
+        that sent you here may be out of date.
+      </p>
+
+      <div style="display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.25rem">
+        <a class="btn btn--blood btn--lg" href="download.html">
+          Download AURA
+          <span class="btn__meta" data-rel="size">221 MB</span>
+        </a>
+        <a class="btn btn--ghost btn--lg" href="index.html">Back to the start</a>
+      </div>
+
+      <p style="margin-top:2.5rem;font-size:.9375rem;color:var(--text-secondary)">
+        Looking for a past build? Every release is listed on
+        <a href="https://github.com/Dinesh210805/aura-releases/releases" rel="noopener"
+           style="color:var(--text-primary);text-decoration:underline;text-underline-offset:3px">GitHub</a>.
+      </p>
+    </div>
+
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__note" style="margin-top:0;border-top:0;padding-top:0">
+      <span>© 2026 AURA. Built in India.</span>
+      <span class="mono" style="font-size:.75rem">
+        <a href="privacy.html">Privacy</a> · <a href="mailto:dinesh210805@gmail.com">Contact</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/aura.js" defer></script>
+</body>
+</html>

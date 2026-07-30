@@ -45,10 +45,103 @@
   font-size: 0.8125rem;
   font-weight: 700;
   line-height: 1;
+  transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease),
+    color var(--t-fast) var(--ease);
 }
 
 .step__n::before {
   content: counter(step);
+}
+
+/* --- checkable steps (added by script; absent without JS) ---------------- */
+
+.step__check {
+  display: inline-flex;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The checkbox is hidden but still focusable and still the thing that gets
+   toggled — the numbered box beside it is only its visual. */
+.step__box {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.step__check:hover .step__n {
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.step__box:focus-visible + .step__n {
+  outline: 2px solid var(--blood);
+  outline-offset: 3px;
+}
+
+.step.is-done .step__n {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: var(--canvas-high);
+}
+
+/* The number is replaced by a tick, not covered by one: once a step is done
+   its position matters less than its state. */
+.step.is-done .step__n::before {
+  content: "✓";
+  font-size: 0.9375rem;
+}
+
+.step.is-done .step__t {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  color: var(--text-secondary);
+}
+
+.step.is-done > div:last-child {
+  opacity: 0.55;
+}
+
+.steps__progress {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 0.9rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.steps__progress b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.steps__hint {
+  font-size: 0.8125rem;
+}
+
+.steps__reset {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--outline);
+  padding: 0 0 1px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.steps__reset:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
 }
 
 .step__t {
@@ -108,6 +201,177 @@
 .path i {
   font-style: normal;
   opacity: 0.4;
+}
+
+/* --------------------------------------------------------------------------
+   10a. Desktop → phone handoff
+   --------------------------------------------------------------------------
+   A visitor on a laptop can't install an APK on it. Rather than let them click
+   a download button that produces a useless file, say so and hand them the
+   address to open on the phone.
+
+   Hidden on Android by an attribute set in <head>, not by the deferred script,
+   so an Android visitor never sees it flash before it disappears.
+   -------------------------------------------------------------------------- */
+
+:root[data-android] [data-platform-note] {
+  display: none !important;
+}
+
+.handoff {
+  margin-top: 1.5rem;
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card-sm);
+  background: var(--canvas-high);
+  padding: 1.15rem 1.35rem;
+  max-width: 46ch;
+}
+
+.handoff__k {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.7rem;
+}
+
+.handoff__k svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+
+.handoff p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0 0 0.9rem;
+}
+
+.handoff__row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.handoff__url {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--r-chip);
+  background: color-mix(in srgb, var(--text-primary) 5%, transparent);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.handoff__copy {
+  flex: none;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.6rem 0.95rem;
+  border-radius: var(--r-chip);
+  border: 1px solid var(--outline);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease);
+}
+
+.handoff__copy:hover {
+  border-color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   10b. Brand picker
+   --------------------------------------------------------------------------
+   Seven accordion rows is a scan; seven chips is a glance. The picker is built
+   from the accordion itself at runtime and stays hidden without JavaScript, so
+   the accordion remains the accessible baseline rather than being replaced by
+   something that needs scripting to work.
+   -------------------------------------------------------------------------- */
+
+.picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+  align-items: center;
+}
+
+.picker[hidden] {
+  display: none;
+}
+
+.picker__label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-right: 0.35rem;
+}
+
+.picker__chip {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 0.55rem 1rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--outline);
+  background: var(--canvas-high);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), color var(--t-fast) var(--ease),
+    background var(--t-fast) var(--ease);
+}
+
+.picker__chip:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.picker__chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--text-on-ink);
+}
+
+:root[data-theme="dark"] .picker__chip[aria-pressed="true"] {
+  background: var(--text-on-ink);
+  border-color: var(--text-on-ink);
+  color: var(--ink);
+}
+
+/* The detected device. Deliberately NOT red — a guess about your phone is not
+   an alert, and red here would compete with the restricted-settings warning
+   that genuinely needs it. */
+.picker__chip[data-detected]::after {
+  content: "your phone";
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-left: 0.5rem;
+  opacity: 0.65;
+}
+
+.picker__note {
+  width: 100%;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  margin: 0.35rem 0 0;
 }
 
 /* --------------------------------------------------------------------------
@@ -371,6 +635,25 @@ table.data td.desc {
   line-height: 1.7;
   word-break: break-all;
   color: var(--text-secondary);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+/* A 64-character string is miserable to select by hand on a phone. */
+.hashrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0.85rem 1rem;
+  border-radius: var(--r-chip);
+  background: color-mix(in srgb, var(--text-primary) 5%, transparent);
+}
+
+.hashrow .handoff__copy {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  background: var(--canvas-high);
 }
 
 /* --------------------------------------------------------------------------

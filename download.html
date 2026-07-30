@@ -24,6 +24,11 @@
 
 <script>
   try { var t = localStorage.getItem("aura-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  // Set before first paint so desktop-only blocks never flash on a phone.
+  if (/android/i.test(navigator.userAgent)) {
+    document.documentElement.setAttribute("data-android", "");
+  }
+  document.documentElement.setAttribute("data-js", "");
 </script>
 </head>
 
@@ -46,12 +51,28 @@
       <a href="mcp.html">For developers</a>
       <a href="download.html" aria-current="page">Download</a>
     </nav>
+    <button class="icon-btn nav-btn" type="button" aria-label="Open menu"
+            aria-expanded="false" aria-controls="mobilenav">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+    </button>
     <button class="icon-btn theme-btn" type="button" aria-label="Switch theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M2 12h2M20 12h2M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5"/></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg>
     </button>
   </div>
 </header>
+
+<nav class="mnav" id="mobilenav" aria-label="Main" tabindex="-1" hidden>
+  <a href="index.html">Home</a>
+  <a href="index.html#what">What it does</a>
+  <a href="index.html#say">Things to say</a>
+  <a href="index.html#safety">Safety</a>
+  <a href="mcp.html">For developers</a>
+  <a href="privacy.html">Privacy</a>
+  <p class="mnav__note">FREE &middot; NO ACCOUNT &middot; ANDROID 8.0+</p>
+  <a class="btn btn--blood" href="download.html">Download AURA</a>
+</nav>
 
 <main id="main">
 
@@ -73,6 +94,7 @@
         <a class="btn btn--blood btn--lg"
            href="https://github.com/Dinesh210805/aura-releases/releases/download/v1.0.291/aura-1.0.291.apk"
            data-rel-href
+           data-android-label="Install on this phone"
            download>
           Download the APK
           <span class="btn__meta" data-rel="size">221 MB</span>
@@ -85,6 +107,22 @@
       <p class="hero__meta" style="margin-top:1.4rem">
         <span>Free</span><span>No account</span><span>No subscription</span>
       </p>
+
+      <!-- Removed on Android by the [data-android] attribute set in <head>. -->
+      <div class="handoff" data-platform-note>
+        <div class="handoff__k">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
+          On a computer?
+        </div>
+        <p>
+          AURA is an Android app, so the file below won't install here. Open this page on
+          your phone and the install takes about five minutes.
+        </p>
+        <div class="handoff__row">
+          <span class="handoff__url" id="pageurl">dinesh210805.github.io/aura/download.html</span>
+          <button class="handoff__copy" type="button" data-copy="#pageurl" data-label="Copy">Copy</button>
+        </div>
+      </div>
     </div>
 
     <div class="dl__facts" data-reveal>
@@ -131,7 +169,7 @@
       </p>
     </div>
 
-    <div class="steps" data-reveal>
+    <div class="steps" data-reveal data-checklist="download">
 
       <div class="step">
         <div class="step__n"></div>
@@ -260,9 +298,11 @@
       </p>
     </div>
 
-    <div class="acc" data-reveal>
+    <div class="picker" id="brandpicker" hidden></div>
 
-      <details>
+    <div class="acc" data-reveal id="brandacc">
+
+      <details data-brand="xiaomi" data-chip="Xiaomi / Redmi / POCO">
         <summary>
           Xiaomi · Redmi · POCO <span class="acc__hint">MIUI / HyperOS</span>
           <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -279,7 +319,7 @@
         </div>
       </details>
 
-      <details>
+      <details data-brand="oppo" data-chip="OPPO / realme">
         <summary>
           OPPO · realme <span class="acc__hint">ColorOS</span>
           <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -294,7 +334,7 @@
         </div>
       </details>
 
-      <details>
+      <details data-brand="vivo" data-chip="vivo / iQOO">
         <summary>
           vivo · iQOO <span class="acc__hint">Funtouch / OriginOS</span>
           <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -308,7 +348,7 @@
         </div>
       </details>
 
-      <details>
+      <details data-brand="huawei" data-chip="Huawei / Honor">
         <summary>
           Huawei · Honor <span class="acc__hint">EMUI / MagicOS</span>
           <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -322,7 +362,7 @@
         </div>
       </details>
 
-      <details>
+      <details data-brand="oneplus" data-chip="OnePlus">
         <summary>
           OnePlus <span class="acc__hint">OxygenOS</span>
           <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -336,7 +376,7 @@
         </div>
       </details>
 
-      <details>
+      <details data-brand="samsung" data-chip="Samsung">
         <summary>
           Samsung <span class="acc__hint">One UI</span>
           <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -351,7 +391,7 @@
         </div>
       </details>
 
-      <details>
+      <details data-brand="other" data-chip="Pixel / other">
         <summary>
           Pixel · Motorola · Nothing · stock Android <span class="acc__hint">nothing extra</span>
           <svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
@@ -476,7 +516,10 @@
           <span class="mono" data-rel="filename">aura-1.0.291.apk</span>. If yours matches, the file
           you have is the file that was published.
         </p>
-        <p class="hash" id="sha">DA47B9AB0F2F2481AE186646E4992E5872E22FB2A112EA43B50C8D9997EB02C8</p>
+        <div class="hashrow">
+          <p class="hash" id="sha">DA47B9AB0F2F2481AE186646E4992E5872E22FB2A112EA43B50C8D9997EB02C8</p>
+          <button class="handoff__copy" type="button" data-copy="#sha" data-label="Copy">Copy</button>
+        </div>
         <div class="code" style="margin-top:1.1rem">
           <button class="copy" type="button" data-copy="#verifycmd" data-label="Copy">Copy</button>
           <pre id="verifycmd"><span class="c"># Windows (PowerShell)</span>

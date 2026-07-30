@@ -531,10 +531,122 @@ strong {
   }
 }
 
+/* --------------------------------------------------------------------------
+   8b. Mobile navigation
+   --------------------------------------------------------------------------
+   Most visitors reach this site on the phone they're about to install on, so
+   the desktop nav collapsing to nothing was a dead end. It collapses to a
+   panel instead: large editorial type, one tap per destination.
+   -------------------------------------------------------------------------- */
+
+.nav-btn {
+  display: none;
+}
+
 @media (max-width: 860px) {
   .nav {
     display: none;
   }
+
+  /* Only offered when scripting can actually open the panel. Without JS the
+     button would be a control that does nothing — worse than absent. Non-JS
+     visitors still reach every page from the footer's link lists. */
+  :root[data-js] .nav-btn {
+    display: inline-grid;
+  }
+
+  /* The header CTA duplicates the panel's own download link on small screens,
+     and two competing buttons in a 68px bar is one too many. */
+  .hdr .btn--ink {
+    display: none;
+  }
+}
+
+.nav-btn .icon-close {
+  display: none;
+}
+
+.nav-btn[aria-expanded="true"] .icon-close {
+  display: block;
+}
+
+.nav-btn[aria-expanded="true"] .icon-menu {
+  display: none;
+}
+
+.mnav {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  background: var(--canvas);
+  padding: 1.5rem var(--gutter) 2rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: mnav-in 260ms var(--ease-out-expo);
+}
+
+.mnav[hidden] {
+  display: none;
+}
+
+@keyframes mnav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.mnav a:not(.btn) {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--outline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-primary);
+}
+
+.mnav a[aria-current="page"] {
+  color: var(--text-secondary);
+}
+
+.mnav a:not(.btn)::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--text-secondary);
+  border-bottom: 1.5px solid var(--text-secondary);
+  transform: rotate(-45deg);
+}
+
+.mnav .btn {
+  margin-top: auto;
+  padding-top: 1.15rem;
+  padding-bottom: 1.15rem;
+  font-size: 1.0625rem;
+}
+
+.mnav__note {
+  margin: 1.75rem 0 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* When the panel owns the screen, the page behind it must not scroll. */
+body.is-locked {
+  overflow: hidden;
 }
 
 /* --------------------------------------------------------------------------
