@@ -98,9 +98,18 @@ stays correct with JavaScript off, offline, or rate-limited, and the fetch only
 ever upgrades what is already there. **Update the authored values each release
 too** — treat the fetch as a convenience, not the mechanism.
 
-The one value that does *not* auto-update is the **SHA-256** on
-`download.html` (`id="sha"`), because the API doesn't publish it. Update that
-by hand each release, or delete the block.
+### Update these by hand every release
+
+The API doesn't expose them, so the fetch can't fix them:
+
+| What | Where | Note |
+|---|---|---|
+| **SHA-256** | `download.html` `id="sha"` | Printed by `sha256sum` during the release; also goes in the release notes |
+| **Processor list** | `download.html`, the "Processors" fact | ⚠️ **Changing soon.** Commit `ccd4f45` drops `x86_64` from release builds (221 MB → 157 MB), so from the next release this must read `arm64-v8a · armeabi-v7a` only. It is correct as written for v1.0.291. |
+| **"three processor types"** | `index.html` FAQ, "Why is the download 221 MB?" | Same commit. Reword once a split build ships. |
+
+The version, size, date, filename and download link *do* update themselves —
+see the table above — but only when the API answers.
 
 ---
 
