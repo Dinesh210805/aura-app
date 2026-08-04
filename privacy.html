@@ -83,9 +83,9 @@
     <div class="note" style="max-width:68ch;margin-bottom:3rem">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
       <span>
-        <strong>Draft, pending legal review.</strong> Last updated 9 July 2026. It describes what
-        the app actually does today; the wording will be tightened before the Play Store
-        release, and the substance won't change without notice here.
+        <strong>Draft, pending legal review.</strong> Last updated 4 August 2026. It describes what
+        the app actually does today; the wording will be tightened before a wider release,
+        and the substance won't change without notice here.
       </span>
     </div>
 
@@ -99,42 +99,65 @@
         you when you ask it to.
       </p>
 
-      <h3>What AURA processes</h3>
+      <h3>AURA does not run its own servers to collect your data</h3>
+      <p>
+        AURA has no backend of its own. There is no AURA-operated server that receives, stores,
+        or processes your voice, screen content, messages, or files. Everything AURA does runs
+        directly on your phone, or is sent directly from your phone to an AI provider
+        <strong>you</strong> choose and configure with <strong>your own API key</strong>
+        ("Bring Your Own Key").
+      </p>
+
+      <h3>What AURA processes, and where it goes</h3>
       <ul>
         <li><strong>Voice</strong> — audio you speak is transcribed so AURA can understand commands.</li>
         <li><strong>Screen content</strong> — while running a task, AURA reads on-screen elements to decide what to tap or type. Banking and payment apps are always blocked.</li>
-        <li><strong>Notifications &amp; media</strong> (only if you grant access) — read to answer questions and perform actions you request. Banking and security notifications are filtered out.</li>
-        <li><strong>Contacts</strong> (only if you grant access) — matched on-device to find a number when you say "message &lt;name&gt;". Numbers never leave your phone.</li>
+        <li><strong>App inventory</strong> (only when you run "Scan for sensitive apps") — the names and package IDs of your installed apps are sent to your configured AI provider once, to suggest which ones to restrict. You review every suggestion before it takes effect.</li>
+        <li><strong>Notifications &amp; media</strong> (only if you grant access) — read to answer questions and perform actions you request. Banking and security notifications are filtered out before AURA ever sees them.</li>
+        <li><strong>Contacts</strong> (only if you grant access) — matched <strong>on-device</strong> to find a number when you say "message &lt;name&gt;". Contact numbers are never sent anywhere.</li>
       </ul>
-
-      <h3>Where processing happens</h3>
       <p>
-        Perception and on-device intelligence run locally on your phone. When you configure an
-        AI provider key, the minimum content needed to fulfil a request may be sent to
-        <em>that</em> provider — for example Groq or Google — under their terms. AURA does not run
-        its own analytics or advertising servers.
+        Everything above — voice, screen content, app inventory — goes <strong>only</strong> to
+        the AI provider (for example Google Gemini, Groq, OpenAI, Anthropic, OpenRouter, or a
+        custom endpoint) that <strong>you</strong> configured with <strong>your own key</strong>,
+        and only the minimum needed to complete the request you asked for. AURA does not see,
+        log, or retain a copy of it beyond what's needed to complete that request.
+      </p>
+
+      <h3>Third-party AI providers — your key, their responsibility</h3>
+      <p>
+        Entering an API key creates a <strong>direct relationship between your device and that
+        provider</strong> — AURA is not a party to it. That provider's own privacy policy and
+        terms govern what they do with anything you send them (retention, training use,
+        regional storage, etc.), and AURA has no visibility into or control over their
+        practices. Choose your provider carefully and review their policy before use.
+        <strong>AURA is not responsible for a third-party provider's handling of your data</strong>
+        — that risk sits between you and the provider you selected, not with AURA.
       </p>
 
       <h3>Keys &amp; secrets</h3>
       <p>
-        Provider API keys you enter are stored in Android's encrypted preferences on your
-        device, and are sent only to the provider you configured.
+        Provider API keys you enter are stored in Android's encrypted, on-device preferences
+        (EncryptedSharedPreferences) and are sent only to the provider you configured — never to
+        AURA or anyone else.
       </p>
 
-      <h3>Crash reports and usage data</h3>
+      <h3>Crash reports and usage analytics</h3>
       <p>
-        Crash reporting is enabled so faults can be fixed. Usage analytics record only the tool
-        name, how long it took, and whether it succeeded — never task content, screen content,
-        tool arguments, or tool results.
+        AURA uses Firebase Crashlytics and Analytics to catch bugs and understand feature usage.
+        These record crash stack traces, device/OS info, and per-tool metrics (which tool ran,
+        how long it took, whether it succeeded) — never your task content, screen content, tool
+        arguments, or tool results.
       </p>
 
       <h3>Data we sell</h3>
-      <p>None. AURA does not sell your data.</p>
+      <p>None. AURA does not sell your data, and never will.</p>
 
       <h3>Your controls</h3>
       <p>
-        You can revoke any permission in Android Settings at any time, and clear stored memory,
-        learnings and activity logs from within the app.
+        Revoke any permission in Android Settings at any time. Clear stored memory, learnings
+        and activity logs from within the app. Remove a provider key at any time to stop that
+        provider from receiving anything further.
       </p>
 
       <h3>Contact</h3>
@@ -151,23 +174,36 @@
         accounts that are not yours.
       </p>
 
+      <h3>You bring your own AI provider</h3>
+      <p>
+        AURA requires you to configure your own API key with a third-party AI provider (for
+        example Google Gemini). That provider's terms of service and privacy policy apply to
+        everything they receive from your device through AURA, in addition to these terms. You
+        are solely responsible for choosing a provider, complying with their terms, and any
+        cost, quota, or data-handling consequences of that choice. AURA has no relationship
+        with, and exercises no control over, your chosen provider.
+      </p>
+
       <h3>AI can make mistakes</h3>
       <p>
         AURA is powered by AI and can misunderstand instructions or act incorrectly. Always
         review important or irreversible actions. Sensitive actions ask for your confirmation
-        before proceeding.
+        before proceeding, and banking/payment apps are hard-blocked at the OS level.
       </p>
 
-      <h3>No warranty</h3>
+      <h3>No warranty, limitation of liability</h3>
       <p>
-        AURA is provided "as is", without warranties of any kind. To the maximum extent
-        permitted by law, the developers are not liable for any damages arising from your use
-        of the app.
+        AURA is provided "AS IS", without warranties of any kind, express or implied. To the
+        maximum extent permitted by law, the developer is not liable for any direct, indirect,
+        incidental, or consequential damages arising from your use of the app, from any action
+        AURA takes on your instruction, or from any third-party AI provider's handling of data
+        you sent them. You use AURA, and any provider you configure, entirely at your own risk.
       </p>
 
       <h3>Changes</h3>
       <p>
-        These terms may be updated; continued use after an update means you accept it.
+        These terms may be updated; continued use after an update means you accept the new
+        version.
       </p>
 
       <h3>Contact</h3>
