@@ -201,6 +201,48 @@
   });
 
   /* ----------------------------------------------------------------------
+     Hero video — sound off by default, unmute on tap
+     ----------------------------------------------------------------------
+     Autoplay policy forces muted playback, so the unmute button is not a
+     convenience but the only way to get audio. The tooltip greets visitors
+     once the page settles, then again if they mute it back.
+     ---------------------------------------------------------------------- */
+
+  var heroVideo = document.querySelector(".hero__video");
+
+  if (heroVideo) {
+    var stage = heroVideo.closest(".hero__stage");
+    var muteBtn = stage && stage.querySelector(".hero__mute");
+    var tip = stage && stage.querySelector(".hero__tip");
+    var tipTimer = null;
+
+    var hideTip = function () {
+      if (tip) tip.classList.remove("is-show");
+    };
+
+    var showTip = function () {
+      if (!tip || reduced) return;
+      tip.classList.add("is-show");
+      clearTimeout(tipTimer);
+      tipTimer = setTimeout(hideTip, 6000);
+    };
+
+    if (muteBtn) {
+      muteBtn.addEventListener("click", function () {
+        heroVideo.muted = !heroVideo.muted;
+        var muted = heroVideo.muted;
+        muteBtn.setAttribute("aria-pressed", muted ? "false" : "true");
+        muteBtn.setAttribute("aria-label", muted ? "Unmute video" : "Mute video");
+        hideTip();
+        if (muted) setTimeout(showTip, 600);
+      });
+    }
+
+    // The greeting — after the reveal has settled, teach the affordance.
+    setTimeout(showTip, 1600);
+  }
+
+  /* ----------------------------------------------------------------------
      Checkable install steps
      ----------------------------------------------------------------------
      These steps are performed ON the phone reading them, so the visitor leaves

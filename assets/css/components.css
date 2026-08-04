@@ -91,6 +91,111 @@
   flex: none;
 }
 
+/* The demo video is a phone screen recording, so it is framed like the
+   phone above it rather than left as a bare <video>. The footage is 4:5
+   with captions at top and bottom; the 9:12.5 frame crops the sides by
+   ~5% each (object-fit: cover) and never the captions. */
+.hero__stage {
+  position: relative;
+  width: min(400px, 100%);
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid var(--outline);
+  background: var(--ink);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06), 0 30px 60px -22px rgba(0, 0, 0, 0.4),
+    0 6px 18px -8px rgba(0, 0, 0, 0.18);
+}
+
+.hero__video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 9 / 12.5;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.01);
+}
+
+/* Sound is off by default (autoplay policy), so the unmute button is not a
+   convenience but the only way to get audio. Always on dark footage, so it
+   uses fixed white + the on-ink hairline, not theme tokens. */
+.hero__mute {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--outline-on-ink);
+  background: rgba(0, 0, 0, 0.72);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.hero__mute:hover {
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.hero__mute:active {
+  transform: scale(0.94);
+}
+
+.hero__mute svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hero__mute .ico-on {
+  display: none;
+}
+
+.hero__mute[aria-pressed="true"] .ico-off {
+  display: none;
+}
+
+.hero__mute[aria-pressed="true"] .ico-on {
+  display: block;
+}
+
+.hero__tip {
+  position: absolute;
+  right: 16px;
+  bottom: 74px;
+  margin: 0;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--ink);
+  border: 1px solid var(--outline-on-ink);
+  color: #ffffff;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hero__tip::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid var(--outline-on-ink);
+  border-bottom: 1px solid var(--outline-on-ink);
+  background: var(--ink);
+  transform: rotate(45deg);
+}
+
+.hero__tip.is-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (max-width: 940px) {
   .hero__grid {
     grid-template-columns: 1fr;

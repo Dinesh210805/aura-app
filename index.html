@@ -96,11 +96,14 @@
     <div>
       <p class="eyebrow"><span class="eyebrow__som">01</span> On-device Android assistant</p>
 
-      <h1 class="t-hero hero__title">Talk to your phone.<br>It <em>actually</em> does it.</h1>
+      <h1 class="t-hero hero__title">
+      Talk to your phone.<br>
+      It <em>actually</em> does it.
+      </h1>
 
       <p class="t-lead hero__lead">
-        Every assistant can set a timer. AURA books the ride, sends the message and
-        fills the form — by looking at your screen and tapping the same buttons you would.
+        Most AI assistants talk. AURA acts.
+        It sees your screen, understands the interface, and completes tasks by tapping the same buttons you would.
       </p>
 
       <div class="hero__cta">
@@ -119,66 +122,34 @@
       </p>
     </div>
 
-    <div class="hero__stage" data-reveal>
-      <div class="phone">
-        <div class="phone__screen">
+<div class="hero__stage" data-reveal>
 
-          <!-- Drop hero.mp4 into assets/media/ and this covers the mock. -->
-          <video class="phone__video" style="display:none" muted loop playsinline preload="metadata">
-            <source src="assets/media/hero.mp4" type="video/mp4">
-          </video>
+  <video class="hero__video"
+         autoplay
+         muted
+         loop
+         playsinline
+         preload="auto">
+    <source src="assets/media/hero.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-          <div class="mockui" aria-hidden="true">
-            <div class="mockui__bar"><span>9:41</span><span>▮▮▮</span></div>
+  <button class="hero__mute" type="button" aria-pressed="false" aria-label="Unmute video">
+    <svg class="ico-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M11 5 6 9H3v6h3l5 4V5z"/>
+      <line x1="16" y1="9" x2="22" y2="15"/>
+      <line x1="22" y1="9" x2="16" y2="15"/>
+    </svg>
+    <svg class="ico-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M11 5 6 9H3v6h3l5 4V5z"/>
+      <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+      <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+    </svg>
+  </button>
 
-            <div class="mockui__app">
-              <div class="mockui__avatar"></div>
-              <div>
-                <div class="mockui__name">Amma</div>
-                <div class="mockui__sub">online</div>
-              </div>
-              <i class="mark" data-id="1" style="--in:.15s"></i>
-            </div>
+  <p class="hero__tip" role="status">Tap to unmute</p>
 
-            <div class="mockui__thread">
-              <div class="bubble bubble--them" style="opacity:.4">Reached home?</div>
-              <div class="bubble bubble--me" style="opacity:.4">Just now 🙂</div>
-              <div class="bubble bubble--them" style="opacity:.55">Dinner at 8?</div>
-              <div class="bubble bubble--me" style="opacity:.55">Yes, coming</div>
-              <div class="bubble bubble--them">
-                Are you leaving now?
-                <i class="mark" data-id="2" style="--in:.3s"></i>
-              </div>
-              <div class="bubble bubble--me">
-                Just about to
-                <i class="mark" data-id="3" style="--in:.45s"></i>
-              </div>
-            </div>
-
-            <div class="mockui__compose">
-              <div class="mockui__field">
-                <span class="typed">running 10 mins late</span>
-                <i class="mark" data-id="4" style="--in:.6s"></i>
-              </div>
-              <div class="mockui__send">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7Z"/></svg>
-                <i class="mark mark--picked" data-id="5" style="--in:.75s"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="narrate">
-            <span class="narrate__dot"></span>
-            typed, then tapped <b>5</b>
-          </div>
-        </div>
-      </div>
-
-      <p class="stage-caption">
-        AURA numbers what it can see,<br>then names a number — never a coordinate.
-      </p>
-    </div>
-
+</div>
   </div>
 </section>
 
