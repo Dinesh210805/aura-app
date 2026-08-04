@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# The OG card source is a render target, not a page anyone should land on.
+Disallow: /assets/media/_og-source.html
+
+Sitemap: https://dinesh210805.github.io/aura-app/sitemap.xml
