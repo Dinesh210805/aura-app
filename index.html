@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AURA — talk to your phone, it actually does it</title>
-<meta name="description" content="AURA is an on-device Android assistant that sees your screen and works your real apps for you. Voice or text, your own AI key, banking apps blocked by default. Free download.">
+<meta name="description" content="AURA is an on-device Android assistant that sees your screen, drives real apps, automates browser tasks, and connects developers to a phone through MCP. Voice or text, your own AI key, banking apps blocked by default.">
 <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151311" media="(prefers-color-scheme: dark)">
 
@@ -51,6 +51,7 @@
 
     <nav class="nav" aria-label="Main">
       <a href="#what">What it does</a>
+      <a href="#demos">Demos</a>
       <a href="#say">Things to say</a>
       <a href="#safety">Safety</a>
       <a href="#faq">FAQ</a>
@@ -74,6 +75,7 @@
 <nav class="mnav" id="mobilenav" aria-label="Main" tabindex="-1" hidden>
   <a href="index.html" aria-current="page">Home</a>
   <a href="#what">What it does</a>
+  <a href="#demos">Demos</a>
   <a href="#say">Things to say</a>
   <a href="#safety">Safety</a>
   <a href="#faq">FAQ</a>
@@ -109,13 +111,13 @@
       <div class="hero__cta">
         <a class="btn btn--blood btn--lg" href="download.html">
           Download for Android
-          <span class="btn__meta" data-rel="size">221.2 MB</span>
+          <span class="btn__meta" data-rel="size">156.8 MB</span>
         </a>
         <a class="btn btn--ghost btn--lg" href="#what">See what it does</a>
       </div>
 
       <p class="hero__meta">
-        <span>v<span data-rel="version">1.0.291</span></span>
+        <span>v<span data-rel="version">1.0.358</span></span>
         <span>Android 8.0+</span>
         <span>No account</span>
         <span>No subscription</span>
@@ -282,6 +284,117 @@
 </section>
 
 <!-- ==================================================================
+     DEMOS
+     ================================================================== -->
+<section class="section section--tight" id="demos">
+  <div class="wrap">
+
+    <div class="head head--split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__som">03</span> Demo reel</p>
+        <h2 class="t-section">Now watch it do the work.</h2>
+      </div>
+      <p class="t-lead">
+        Real runs, captured on a real phone. Every demo below is a live session —
+        open a card's <strong>working trace</strong> and read the run, step by step, right here.
+      </p>
+    </div>
+
+    <div class="demo-grid" data-reveal>
+      <article class="card demo-card">
+        <div class="slot demo-slot">
+          <video muted loop playsinline preload="metadata">
+            <source src="assets/media/amazon-flipkart%20comparison.mp4" type="video/mp4">
+          </video>
+          <span class="slot__label">
+            <b>Price comparison</b> · compare Amazon and Flipkart without buying
+          </span>
+        </div>
+        <div class="demo-card__copy">
+          <span class="feat__tag">Browser research</span>
+          <h3 class="t-card">Find the better deal</h3>
+          <p class="feat__body">
+            Open the browser and search for Logitech MX Master 3S on both Amazon and Flipkart.
+            Compare the final price, delivery date, seller rating, warranty, and return policy
+            for each, then show which one offers the better deal without adding anything to the cart.
+          </p>
+          <div class="tools" aria-label="Browser tools">
+            <code data-hot>browser_open</code><code>browser_tabs</code><code>browser_read</code><code data-hot>browser_act</code>
+          </div>
+          <div class="demo-card__trace" data-trace="price-comparison" hidden></div>
+        </div>
+      </article>
+
+      <article class="card demo-card">
+        <div class="slot demo-slot">
+          <video muted loop playsinline preload="metadata">
+            <source src="assets/media/lecafe.mp4" type="video/mp4">
+          </video>
+          <span class="slot__label">
+            <b>Local discovery</b> · find a café and open directions
+          </span>
+        </div>
+        <div class="demo-card__copy">
+          <span class="feat__tag">Search + Maps</span>
+          <h3 class="t-card">Find a café near Rock Beach</h3>
+          <p class="feat__body">
+            Find a highly rated café near Rock Beach, Puducherry, check its opening hours today,
+            and get directions to it in Maps.
+          </p>
+          <div class="tools" aria-label="Deep link and system tools">
+            <code data-hot>web_search</code><code>browser_read</code><code>resolve_deeplink</code><code data-hot>open_deeplink</code>
+          </div>
+          <div class="demo-card__trace" data-trace="local-discovery" hidden></div>
+        </div>
+      </article>
+
+      <article class="card demo-card">
+        <div class="slot demo-slot">
+          <video muted loop playsinline preload="metadata">
+            <source src="assets/media/swiggy.mp4" type="video/mp4">
+          </video>
+          <span class="slot__label">
+            <b>Swiggy coffee search</b> · search for coffee without ordering
+          </span>
+        </div>
+        <div class="demo-card__copy">
+          <span class="feat__tag">Everyday research</span>
+          <h3 class="t-card">Find a highly rated coffee</h3>
+          <p class="feat__body">
+            Open Swiggy in the browser, search for coffee, and stop on the results. No comparison,
+            cart, or order — just a fast search from a plain-language request.
+          </p>
+          <div class="tools" aria-label="Swiggy browser tools">
+            <code data-hot>browser_open</code><code>browser_act</code><code data-hot>browser_find</code><code>verify_action</code>
+          </div>
+          <div class="demo-card__trace" data-trace="swiggy-coffee" hidden></div>
+        </div>
+      </article>
+
+      <article class="card demo-card demo-card--feature">
+        <div class="slot demo-slot demo-slot--feature">
+          <video muted loop playsinline controls preload="metadata" aria-label="AURA MCP demo">
+            <source src="assets/media/mcp.mp4" type="video/mp4">
+          </video>
+          <span class="slot__label">
+            <b>AURA MCP in action</b> · a developer client driving a real Android phone
+          </span>
+        </div>
+        <div class="demo-card__copy">
+          <span class="feat__tag">For developers</span>
+          <h3 class="t-card">Your phone is an MCP server</h3>
+          <p class="feat__body">
+            Pair once, then let Claude Code, Cursor, or another MCP client see and drive a real
+            Android phone over the connection.
+          </p>
+        </div>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================================================================
      THINGS TO SAY
      Closes the "I installed it, now what?" gap. Grouped by what the person
      wants, not by which tool serves it.
@@ -291,7 +404,7 @@
 
     <div class="head head--split" data-reveal>
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">03</span> Things to say</p>
+        <p class="eyebrow"><span class="eyebrow__som">04</span> Things to say</p>
         <h2 class="t-section">Talk to it like a person, not a remote.</h2>
       </div>
       <p class="t-lead">
@@ -371,7 +484,7 @@
 <section class="section ink">
   <div class="wrap">
     <div class="head head--wide" data-reveal>
-      <p class="eyebrow"><span class="eyebrow__som">04</span> How it works</p>
+      <p class="eyebrow"><span class="eyebrow__som">05</span> How it works</p>
       <h2 class="t-section">Look. Act. Look again.</h2>
       <p class="t-lead">
         The reason most phone automation breaks is that it assumes the tap worked.
@@ -422,7 +535,7 @@
 
     <div class="head head--split" data-reveal>
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">05</span> Safety</p>
+        <p class="eyebrow"><span class="eyebrow__som">06</span> Safety</p>
         <h2 class="t-section">You're handing it your phone. Here's what it can't do.</h2>
       </div>
       <p class="t-lead">
@@ -530,17 +643,19 @@
   <div class="wrap">
     <div class="card" data-reveal style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:center">
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">06</span> For developers</p>
+        <p class="eyebrow"><span class="eyebrow__som">07</span> For developers</p>
         <h2 class="t-card" style="font-size:clamp(1.4rem,1.1rem+1.2vw,2rem);margin-bottom:.85rem">
           Your phone is also an MCP server
         </h2>
         <p class="feat__body" style="max-width:56ch">
           Pair once with a 6-digit PIN and Claude Code, Claude Desktop, Cursor or Copilot can
-          drive the handset directly over an encrypted peer-to-peer link — no root, no ADB
-          cable, no cloud in the middle. Same <span data-src="toolcount">58</span> tools, same safety gate.
+          drive the handset directly over an encrypted peer-to-peer link — no root and no ADB
+          required for core control. The optional <span class="mono">aura-adb</span> bridge adds
+          a local developer channel. Same <span data-src="toolcount">58</span> on-device tools,
+          same safety gate.
         </p>
       </div>
-      <a class="btn btn--ink" href="mcp.html">Read the setup</a>
+      <a class="btn btn--ink" href="mcp.html">Explore MCP tools</a>
     </div>
   </div>
 </section>
@@ -551,7 +666,7 @@
 <section class="section" id="faq">
   <div class="wrap">
     <div class="head" data-reveal>
-      <p class="eyebrow"><span class="eyebrow__som">07</span> Questions</p>
+      <p class="eyebrow"><span class="eyebrow__som">08</span> Questions</p>
       <h2 class="t-section">The things people ask first</h2>
     </div>
 
@@ -623,7 +738,7 @@
      ================================================================== -->
 <section class="band ink">
   <div class="wrap">
-    <p class="eyebrow" style="justify-content:center"><span class="eyebrow__som">08</span> Get started</p>
+    <p class="eyebrow" style="justify-content:center"><span class="eyebrow__som">09</span> Get started</p>
     <h2 class="t-section">Give it something to do.</h2>
     <p class="t-lead">
       Free, no account, about five minutes to set up — including the permission
@@ -632,7 +747,7 @@
     <div class="band__cta">
       <a class="btn btn--blood btn--lg" href="download.html">
         Download for Android
-        <span class="btn__meta" data-rel="size">221.2 MB</span>
+        <span class="btn__meta" data-rel="size">156.8 MB</span>
       </a>
       <a class="btn btn--ghost btn--lg" href="mcp.html">I'm a developer</a>
     </div>
@@ -686,7 +801,7 @@
     <div class="foot__note">
       <span>© 2026 AURA. Built in India.</span>
       <span class="mono" style="font-size:.75rem">
-        v<span data-rel="version">1.0.291</span> · released <span data-rel="date">30 Jul 2026</span>
+        v<span data-rel="version">1.0.358</span> · released <span data-rel="date">6 Aug 2026</span>
       </span>
     </div>
   </div>

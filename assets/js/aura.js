@@ -502,6 +502,218 @@
   }
 
   /* ----------------------------------------------------------------------
+     Working traces — the portrait demo cards
+     ----------------------------------------------------------------------
+     Each card owns a <div class="demo-card__trace" data-trace="…"> slot,
+     hidden until assets/data/traces.json answers. That file is built by
+     site/scripts/build-traces.py from the phone's own session logs, pulled
+     over adb (files/mcp_logs/<sessionId>/metadata.json) and cleaned so the
+     rendered run reads cleanly. The card shows the top of the log; the
+     button opens the complete trace in a modal, right here in the page.
+
+     Everything is built with DOM nodes, never innerHTML — the trace fields
+     are data pulled off a device and are treated as untrusted.
+     ---------------------------------------------------------------------- */
+
+  var traceBlocks = document.querySelectorAll("[data-trace]");
+
+  if (traceBlocks.length && "fetch" in window) {
+    var traceModal = null;
+    var traceTrigger = null;
+
+    var fmtTokens = function (n) {
+      if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+      if (n >= 1e3) return Math.round(n / 1e3) + "k";
+      return String(n);
+    };
+
+    var fmtDur = function (s) {
+      if (s >= 60) {
+        var m = Math.floor(s / 60);
+        return m + "m " + (s - m * 60) + "s";
+      }
+      return s + "s";
+    };
+
+    var fmtClock = function (sec) {
+      var m = Math.floor(sec / 60);
+      var s = sec % 60;
+      return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    };
+
+    function node(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (text !== undefined) n.textContent = text;
+      return n;
+    }
+
+    var closeTrace = function () {
+      if (!traceModal || traceModal.hidden) return;
+      traceModal.hidden = true;
+      document.body.classList.remove("is-locked");
+      if (traceTrigger) traceTrigger.focus();
+    };
+
+    var openTrace = function (trace, card) {
+      if (!traceModal) traceModal = buildTraceModal();
+
+      var title = card.querySelector("h3");
+      traceModal.querySelector(".trace-panel__title").textContent =
+        title ? title.textContent : "Working trace";
+
+      traceModal.querySelector(".trace-panel__cmd").textContent =
+        "“" + (trace.command || "…") + "”";
+
+      traceModal.querySelector(".trace-panel__result-text").textContent =
+        trace.result || "";
+
+      var stepsEl = traceModal.querySelector(".trace-panel__steps");
+      stepsEl.textContent = "";
+      (trace.steps || []).forEach(function (s) {
+        var row = node("div", "trace-step" + (s.ok ? "" : " is-fail"));
+
+        var head = node("div", "trace-step__head");
+        head.appendChild(node("span", "trace-step__time", fmtClock(s.at || 0)));
+        head.appendChild(node("span", "trace-step__tool", s.tool));
+        if (s.ms != null) head.appendChild(node("span", "trace-step__ms", s.ms + "ms"));
+        if (!s.ok) head.appendChild(node("span", "trace-step__badge", "failed"));
+        row.appendChild(head);
+
+        if (s.args) row.appendChild(node("p", "trace-step__args", s.args));
+        if (s.out) row.appendChild(node("p", "trace-step__out", s.out));
+        if (s.gesture) {
+          var g = "gesture: " + s.gesture;
+          if (s.xy && s.xy.length === 2) g += " @ " + s.xy.join(", ");
+          row.appendChild(node("p", "trace-step__args", g));
+        }
+        stepsEl.appendChild(row);
+      });
+
+      var foot = traceModal.querySelector(".trace-panel__foot");
+      foot.textContent = "";
+      var st = trace.stats || {};
+      foot.appendChild(node("span", "", "session " + (trace.sessionId || "?")));
+      foot.appendChild(node("span", "", "agent: " + (trace.agent || "?")));
+      foot.appendChild(
+        node("span", "", st.calls + " tool calls · " + fmtTokens(st.tokens || 0) + " tokens · " + fmtDur(trace.durationS || 0))
+      );
+      foot.appendChild(node("span", "", trace.startedAt || ""));
+
+      traceModal.hidden = false;
+      document.body.classList.add("is-locked");
+      var closeBtn = traceModal.querySelector(".trace-panel__close");
+      if (closeBtn) closeBtn.focus();
+    };
+
+    var buildTraceModal = function () {
+      var modal = node("div", "trace-modal");
+      modal.hidden = true;
+      modal.setAttribute("role", "dialog");
+      modal.setAttribute("aria-modal", "true");
+
+      var panel = node("div", "trace-panel");
+
+      var head = node("header", "trace-panel__head");
+      var headTxt = node("div");
+      headTxt.appendChild(node("p", "eyebrow", "Working trace"));
+      headTxt.appendChild(node("h3", "t-card trace-panel__title"));
+      headTxt.appendChild(node("p", "trace-panel__cmd"));
+      head.appendChild(headTxt);
+
+      var closeBtn = node("button", "icon-btn trace-panel__close");
+      closeBtn.type = "button";
+      closeBtn.setAttribute("aria-label", "Close trace");
+      closeBtn.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>';
+      closeBtn.addEventListener("click", closeTrace);
+      head.appendChild(closeBtn);
+      panel.appendChild(head);
+
+      var result = node("div", "trace-panel__result");
+      result.appendChild(node("span", "trace__k", "What it found"));
+      result.appendChild(node("p", "trace-panel__result-text"));
+      panel.appendChild(result);
+
+      panel.appendChild(node("div", "trace-panel__steps"));
+      panel.appendChild(node("footer", "trace-panel__foot"));
+
+      modal.appendChild(panel);
+
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) closeTrace();
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.hidden) closeTrace();
+      });
+
+      document.body.appendChild(modal);
+      return modal;
+    };
+
+    fetch("assets/data/traces.json")
+      .then(function (r) {
+        if (!r.ok) throw new Error("traces lookup failed: " + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        var byId = {};
+        (data.traces || []).forEach(function (t) {
+          byId[t.id] = t;
+        });
+
+        traceBlocks.forEach(function (block) {
+          var trace = byId[block.getAttribute("data-trace")];
+          if (!trace) return;
+          var st = trace.stats || {};
+
+          var meta = node("div", "trace__meta");
+          var chips = [
+            [st.calls, " tool calls"],
+            [st.ok + "/" + st.calls, " ok"],
+            [fmtTokens(st.tokens || 0), " tokens"],
+            [fmtDur(trace.durationS || 0), ""],
+            [trace.agent || "", ""]
+          ];
+          chips.forEach(function (c) {
+            if (!c[0]) return;
+            var chip = node("span", "trace__chip");
+            chip.appendChild(node("b", "", String(c[0])));
+            chip.appendChild(document.createTextNode(c[1]));
+            meta.appendChild(chip);
+          });
+
+          var line = node("p", "trace__line");
+          line.textContent = (trace.result || "").slice(0, 190) + ((trace.result || "").length > 190 ? "…" : "");
+          line.insertBefore(node("b", "", "Last run — top of the log"), line.firstChild);
+
+          var card = block.closest(".demo-card") || block;
+          var title = card.querySelector("h3");
+          var btn = node("button", "btn btn--ghost trace__btn", "Show full trace");
+          btn.type = "button";
+          if (title) {
+            btn.setAttribute("aria-label", "Show the complete working trace for " + title.textContent);
+          }
+          btn.innerHTML +=
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+          btn.addEventListener("click", function () {
+            traceTrigger = btn;
+            openTrace(trace, card);
+          });
+
+          block.appendChild(meta);
+          block.appendChild(line);
+          block.appendChild(btn);
+          block.hidden = false;
+        });
+      })
+      .catch(function () {
+        /* traces.json missing or unreachable — the slots stay hidden and the
+           cards read exactly as they did before this feature existed. */
+      });
+  }
+
+  /* ----------------------------------------------------------------------
      Live release info
      ----------------------------------------------------------------------
      The page ships with the current release hard-coded, so it is correct with

@@ -826,3 +826,412 @@ table.data td.desc {
   font-weight: 600;
   margin-bottom: 4px;
 }
+
+/* --------------------------------------------------------------------------
+   17a. Demo reel
+   --------------------------------------------------------------------------
+   Recordings are intentionally additive. The copy and tool names remain useful
+   before a video exists, while a loaded file takes over the same reserved frame.
+   -------------------------------------------------------------------------- */
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  padding: 1rem;
+  transition: border-color var(--t-normal) var(--ease), transform var(--t-normal) var(--ease);
+}
+
+.demo-card--feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(250px, 0.75fr);
+  align-items: center;
+}
+
+.demo-card:hover {
+  border-color: color-mix(in srgb, var(--text-primary) 34%, transparent);
+  transform: translateY(-2px);
+}
+
+.demo-slot {
+  aspect-ratio: 1080 / 2414;
+  padding: 0;
+}
+
+.demo-slot video {
+  display: none;
+  object-fit: contain;
+  background: #0b0b0b;
+}
+
+.demo-slot--feature {
+  aspect-ratio: 16 / 9;
+  padding: 0;
+  background: #0b0b0b;
+}
+
+.demo-slot--feature video {
+  object-fit: contain;
+}
+
+@media (max-width: 760px) {
+  .demo-card--feature {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-card__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0 0.35rem 0.35rem;
+  flex: 1;
+  min-height: 0;
+}
+
+.demo-card__copy .tools {
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+@media (max-width: 920px) {
+  .demo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .demo-card:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-card:last-child {
+    grid-column: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17aa. Working traces — the portrait demo cards
+   A card's log block is filled from assets/data/traces.json (built by
+   site/scripts/build-traces.py pulling session logs off a phone over adb).
+   The card shows the top of the log; the button opens the complete working
+   trace in the modal below. Red appears only when a step failed.
+   -------------------------------------------------------------------------- */
+
+.demo-card__trace {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.1rem;
+  padding: 0.85rem;
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card-sm);
+  background: color-mix(in srgb, var(--text-primary) 2.5%, transparent);
+}
+
+.trace__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.trace__chip {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-pill);
+  padding: 3px 9px;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trace__chip b {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.trace__line {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.trace__line b {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.trace__btn {
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+
+.trace__btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* --- the full-trace modal ------------------------------------------------ */
+
+.trace-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(5px);
+  animation: trace-fade var(--t-normal) var(--ease);
+}
+
+.trace-modal[hidden] {
+  display: none;
+}
+
+@keyframes trace-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.trace-panel {
+  width: min(760px, 100%);
+  max-height: min(84vh, 960px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--canvas-high);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18), 0 40px 90px -30px rgba(0, 0, 0, 0.55);
+  animation: trace-rise var(--t-normal) var(--ease-out-expo);
+}
+
+@keyframes trace-rise {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+
+.trace-panel__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 1.5rem 1.5rem 1.15rem;
+  border-bottom: 1px solid var(--outline);
+}
+
+.trace-panel__head > div {
+  min-width: 0;
+}
+
+.trace-panel__title {
+  margin: 0.2rem 0 0.45rem;
+}
+
+.trace-panel__cmd {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.trace-panel__close {
+  flex: none;
+  margin-left: auto;
+}
+
+.trace-panel__result {
+  padding: 1.15rem 1.5rem;
+  border-bottom: 1px solid var(--outline);
+  background: color-mix(in srgb, var(--text-primary) 2%, transparent);
+}
+
+.trace-panel__result .trace__k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.trace-panel__result-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.trace-panel__steps {
+  padding: 0.25rem 1.5rem 0.75rem;
+}
+
+.trace-step {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--outline);
+}
+
+.trace-step:first-child {
+  border-top: none;
+}
+
+.trace-step__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.trace-step__time {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  flex: none;
+}
+
+.trace-step__tool {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.trace-step__ms {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.trace-step__badge {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blood-on-container);
+  background: var(--blood-container);
+  border-radius: var(--r-pill);
+  padding: 2px 8px;
+}
+
+.trace-step.is-fail .trace-step__tool {
+  color: var(--blood);
+}
+
+.trace-step__args,
+.trace-step__out {
+  margin: 0.4rem 0 0 1.65rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.trace-step__args {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.trace-step__out {
+  color: var(--text-primary);
+}
+
+.trace-panel__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.2rem;
+  padding: 0.9rem 1.5rem 1.25rem;
+  border-top: 1px solid var(--outline);
+  font-size: 0.6875rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 560px) {
+  .trace-panel__head,
+  .trace-panel__result,
+  .trace-panel__steps {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+  }
+
+  .trace-step__args,
+  .trace-step__out {
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trace-modal,
+  .trace-panel {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17b. ADB developer bridge
+   -------------------------------------------------------------------------- */
+
+.adb-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.adb-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.adb-card .code {
+  margin-top: auto !important;
+}
+
+.adb-slot {
+  aspect-ratio: 16 / 9;
+  min-height: 0;
+}
+
+.adb-slot video {
+  display: none;
+  object-fit: contain;
+  background: #0b0b0b;
+}
+
+@media (max-width: 760px) {
+  .adb-slot {
+    aspect-ratio: 16 / 10;
+  }
+}

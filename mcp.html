@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AURA for developers — your phone as an MCP server</title>
-<meta name="description" content="Pair Claude Code, Claude Desktop, Cursor or Copilot with a real Android phone over an encrypted peer-to-peer link. 58 MCP tools, no root, no ADB, no cloud in the data path.">
+<title>AURA for developers — MCP tools for a real Android phone</title>
+<meta name="description" content="Pair Claude Code, Claude Desktop, Cursor or Copilot with a real Android phone over an encrypted peer-to-peer link. 58 on-device MCP tools, browser automation, and optional host-side ADB through aura-adb.">
 <meta name="theme-color" content="#fafaf8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#151311" media="(prefers-color-scheme: dark)">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="AURA for developers — your phone as an MCP server">
-<meta property="og:description" content="Drive a real Android handset from your MCP client over WebRTC. No root, no ADB cable, no cloud round-trip.">
+<meta property="og:title" content="AURA for developers — MCP tools for a real Android phone">
+<meta property="og:description" content="Drive a real Android handset from your MCP client over WebRTC, with browser tools and optional host-side ADB for development workflows.">
 <meta property="og:image" content="assets/media/og.png">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -83,8 +83,8 @@
       <h1 class="t-section">Your phone is an MCP server.</h1>
       <p class="t-lead" style="margin-top:1.35rem">
         Install the app, pair once with a six-digit PIN, and your MCP client drives a real
-        handset — taps, screenshots, deep links, the lot. No root, no ADB cable, and no
-        cloud service sitting in the data path.
+        handset — taps, screenshots, browser pages, deep links, the lot. No root and no ADB
+        required for the core phone connection; no cloud service sits in the data path.
       </p>
     </div>
 
@@ -262,6 +262,18 @@ claude mcp add --transport http aura http://127.0.0.1:4816/mcp</pre>
           goal, instead of leaving it to improvise one.
         </p>
       </div>
+      <div class="card">
+        <span class="feat__tag">New tools</span>
+        <h3 class="t-card" style="font-size:1.15rem;margin:.85rem 0 .6rem">Web, links, and device state</h3>
+        <p class="feat__body">
+          Browser tools can open, read, find, extract, upload, and act on pages. Deep-link,
+          notification, media, file, contact, and system tools take deterministic routes when
+          a gesture loop would be slower or less reliable.
+        </p>
+        <div class="tools" style="margin-top:.9rem" aria-label="New MCP tools">
+          <code data-hot>browser_open</code><code>browser_extract</code><code>browser_tabs</code><code data-hot>open_deeplink</code><code>read_notifications</code><code>media_control</code><code>find_files</code>
+        </div>
+      </div>
     </div>
 
     <div class="card" style="margin-top:14px" data-reveal>
@@ -274,12 +286,71 @@ claude mcp add --transport http aura http://127.0.0.1:4816/mcp</pre>
 </section>
 
 <!-- ==================================================================
+     ADB OVER AURA MCP
+     ================================================================== -->
+<section class="section" id="adb">
+  <div class="wrap">
+    <div class="head head--split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__som">04</span> Developer bridge</p>
+        <h2 class="t-section">ADB over AURA MCP.</h2>
+      </div>
+      <p class="t-lead">
+        When the accessibility path cannot see a Flutter, React Native, WebView, or stuck
+        screen, your MCP client can switch to the same phone's local ADB channel for evidence
+        and developer workflows.
+      </p>
+    </div>
+
+    <div class="adb-grid" data-reveal>
+      <div class="card adb-card">
+        <span class="feat__tag">Optional · off by default</span>
+        <h3 class="t-card">One extra tool: <span class="mono">aura-adb</span></h3>
+        <p class="feat__body">
+          The daemon runs <span class="mono">adb &lt;command&gt;</span> on the computer hosting
+          your MCP connection and targets the phone already paired to that machine over USB or
+          Android Wireless Debugging. It is separate from AURA's WebRTC pairing and never runs
+          a host shell.
+        </p>
+        <div class="code" style="margin-top:auto">
+          <button class="copy" type="button" data-copy="#adb-command" data-label="Copy">Copy</button>
+          <pre id="adb-command">aura-mcp daemon --enable-adb
+
+aura-adb(command: "logcat -d -t 200")
+aura-adb(command: "shell dumpsys window | grep mCurrentFocus")</pre>
+        </div>
+      </div>
+
+      <div class="slot adb-slot">
+        <video muted loop playsinline controls preload="metadata" aria-label="AURA MCP demo">
+          <source src="assets/media/mcp.mp4" type="video/mp4">
+        </video>
+        <span class="slot__label">
+          <b>AURA MCP in action</b>
+          <span class="mono">mcp.mp4</span> · Claude Code driving a real Android phone through MCP
+        </span>
+      </div>
+    </div>
+
+    <p class="note note--critical" style="margin-top:1.25rem" data-reveal>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+      <span>
+        <strong>ADB is a second channel, not a safety bypass.</strong> If AURA refuses a
+        banking, payment, authenticator, credential, or other sensitive action, ADB must stay
+        refused too. Ask before destructive commands such as <span class="mono">pm clear</span>,
+        <span class="mono">uninstall</span>, or device-side deletes.
+      </span>
+    </p>
+  </div>
+</section>
+
+<!-- ==================================================================
      SECURITY
      ================================================================== -->
 <section class="section">
   <div class="wrap">
     <div class="head head--wide" data-reveal>
-      <p class="eyebrow"><span class="eyebrow__som">04</span> Security</p>
+      <p class="eyebrow"><span class="eyebrow__som">05</span> Security</p>
       <h2 class="t-section">Five gates, all fail-closed</h2>
       <p class="t-lead">
         A tool server that can tap anything on a personal phone is a serious thing to expose.
@@ -344,7 +415,7 @@ claude mcp add --transport http aura http://127.0.0.1:4816/mcp</pre>
     <div class="band__cta">
       <a class="btn btn--blood btn--lg" href="download.html">
         Download for Android
-        <span class="btn__meta" data-rel="size">221.2 MB</span>
+        <span class="btn__meta" data-rel="size">156.8 MB</span>
       </a>
       <a class="btn btn--ghost btn--lg" href="https://www.npmjs.com/package/aura-mcp-connect" rel="noopener">aura-mcp-connect on npm</a>
     </div>
@@ -394,7 +465,7 @@ claude mcp add --transport http aura http://127.0.0.1:4816/mcp</pre>
     <div class="foot__note">
       <span>© 2026 AURA. Built in India.</span>
       <span class="mono" style="font-size:.75rem">
-        v<span data-rel="version">1.0.291</span> · released <span data-rel="date">30 Jul 2026</span>
+        v<span data-rel="version">1.0.358</span> · released <span data-rel="date">6 Aug 2026</span>
       </span>
     </div>
   </div>

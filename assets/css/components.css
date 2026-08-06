@@ -91,10 +91,11 @@
   flex: none;
 }
 
-/* The demo video is a phone screen recording, so it is framed like the
-   phone above it rather than left as a bare <video>. The footage is 4:5
-   with captions at top and bottom; the 9:12.5 frame crops the sides by
-   ~5% each (object-fit: cover) and never the captions. */
+/* The demo video is a phone screen recording (1080×2414), so it is framed
+   like the phone above it rather than left as a bare <video>. The frame
+   matches the footage's own aspect ratio and object-fit: contain shows it
+   edge-to-edge, never cropped — a replaced file with a different ratio
+   letterboxes instead of losing pixels. */
 .hero__stage {
   position: relative;
   width: min(400px, 100%);
@@ -110,10 +111,9 @@
 .hero__video {
   display: block;
   width: 100%;
-  aspect-ratio: 9 / 12.5;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.01);
+  aspect-ratio: 1080 / 2414;
+  object-fit: contain;
+  background: var(--ink);
 }
 
 /* Sound is off by default (autoplay policy), so the unmute button is not a
