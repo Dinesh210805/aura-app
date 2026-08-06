@@ -1,0 +1,42 @@
+# Publishes the repo root as-is to GitHub Pages.
+#
+# WHY THIS EXISTS: the legacy Pages builder (build_type "legacy") runs Jekyll
+# over the branch and it started failing once the site carried ~68 MB of demo
+# video — a build errored, then the next one wedged at "building" for half an
+# hour. This path skips Jekyll entirely and just uploads the tree, which is all
+# a hand-written static site ever needed.
+#
+# This file lives in site/.github/ in the SOURCE repo. site/deploy.sh copies
+# site/. wholesale, so it lands at .github/ in the published repo.
+name: Deploy site to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two publishes race; the newest push wins, but let an in-flight
+# deploy finish rather than leaving the site half-swapped.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
