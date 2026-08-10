@@ -99,13 +99,21 @@
         you when you ask it to.
       </p>
 
-      <h3>AURA does not run its own servers to collect your data</h3>
+      <h3>No AURA server ever receives your content</h3>
       <p>
-        AURA has no backend of its own. There is no AURA-operated server that receives, stores,
-        or processes your voice, screen content, messages, or files. Everything AURA does runs
+        There is no AURA-operated server that receives, stores, or processes your voice,
+        screen content, messages, or files. Everything AURA does runs
         directly on your phone, or is sent directly from your phone to an AI provider
         <strong>you</strong> choose and configure with <strong>your own API key</strong>
         ("Bring Your Own Key").
+      </p>
+      <p>
+        AURA does operate one small backend, and it holds no content: an anonymous record of
+        the app itself &mdash; which phone model and Android version it is running on, which
+        AURA version, and when it last ran. It exists so we know which devices a fix has
+        actually reached, and which ones a change would break. It is listed in full under
+        <a href="#diagnostics" style="text-decoration:underline;text-underline-offset:3px">anonymous
+        diagnostics</a> below, and you can switch it off.
       </p>
 
       <h3>What AURA processes, and where it goes</h3>
@@ -142,12 +150,31 @@
         AURA or anyone else.
       </p>
 
-      <h3>Crash reports and usage analytics</h3>
+      <h3 id="diagnostics">Anonymous diagnostics &mdash; the complete list</h3>
       <p>
-        AURA uses Firebase Crashlytics and Analytics to catch bugs and understand feature usage.
-        These record crash stack traces, device/OS info, and per-tool metrics (which tool ran,
-        how long it took, whether it succeeded) — never your task content, screen content, tool
-        arguments, or tool results.
+        AURA uses Firebase Crashlytics and Analytics for crashes and feature usage, and records
+        one row per install so we can see the fleet. Together they collect, exhaustively:
+      </p>
+      <ul>
+        <li>a random per-install ID that resets when you uninstall</li>
+        <li>phone make, model and Android version</li>
+        <li>AURA's version, and whether it is a debug or release build</li>
+        <li>your language and time zone</li>
+        <li>how many times the app has been launched, and when it last ran</li>
+        <li>crash stack traces, and per-tool metrics (which tool ran, how long it took, whether it succeeded)</li>
+      </ul>
+      <p>
+        That is everything. <strong>Never</strong> your task content, screen content, tool
+        arguments, tool results, messages, contacts, files, or location. There is no advertising
+        ID, no IMEI, no serial number, and nothing that identifies you across apps or survives a
+        reinstall.
+      </p>
+      <p>
+        Turn it off in <strong>Settings &rarr; Privacy &amp; Data &rarr; "Share anonymous
+        diagnostics"</strong>. That stops all future reporting. To have an already-recorded row
+        deleted, <a href="mailto:dinesh210805@gmail.com" style="text-decoration:underline;text-underline-offset:3px">email
+        us</a> &mdash; the app deliberately cannot delete rows itself, because an app that could
+        delete its own row could be made to delete someone else's.
       </p>
 
       <h3>Data we sell</h3>
