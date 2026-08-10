@@ -196,6 +196,13 @@
   transform: translateY(0);
 }
 
+/* Reduced motion hands the hero its native controls, which already carry both
+   play and volume. Two sets of controls in one corner is worse than one. */
+.hero__stage.has-controls .hero__mute,
+.hero__stage.has-controls .hero__tip {
+  display: none;
+}
+
 @media (max-width: 940px) {
   .hero__grid {
     grid-template-columns: 1fr;
@@ -927,11 +934,44 @@
 }
 
 .loop__step {
+  position: relative;
   background: var(--ink);
   padding: clamp(1.5rem, 1.2rem + 1.4vw, 2.4rem);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  transition: opacity var(--t-normal) var(--ease);
+}
+
+/* While the strip is being scrolled through one step at a time — which only
+   happens when it is stacked, i.e. on a phone — the step level with the
+   middle of the viewport is the lit one. [data-scrub] is set by script and
+   removed the moment more than one step qualifies, so a desktop visitor
+   seeing all three at once sees all three at full strength. */
+.loop[data-scrub] .loop__step {
+  opacity: 0.42;
+}
+
+.loop[data-scrub] .loop__step.is-lit {
+  opacity: 1;
+}
+
+/* The blood rule is the "you are here" marker, and it is the only place in
+   this section colour appears — attention, not decoration. */
+.loop__step::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  background: var(--blood);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 420ms var(--ease-out-expo);
+}
+
+.loop[data-scrub] .loop__step.is-lit::before {
+  transform: scaleX(1);
 }
 
 .loop__n {
@@ -1091,4 +1131,262 @@
 
 .note--critical strong {
   color: var(--blood-on-container);
+}
+
+/* --------------------------------------------------------------------------
+   11. The browser — drawn chrome + the claims beside it
+   --------------------------------------------------------------------------
+   The frame is HTML, not a screenshot: it re-themes with the page, stays
+   sharp at any size, and can carry the same numbered-element language the
+   hero uses rather than importing a second visual idiom.
+
+   The stage sticks while the points scroll past it, so the thing being
+   described stays on screen for the whole description. Sticky is free —
+   no scroll listener, no layout thrash — and collapses to normal flow at
+   the breakpoint where the two columns become one.
+   -------------------------------------------------------------------------- */
+
+.bw {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  align-items: start;
+}
+
+.bw__stage {
+  position: sticky;
+  top: 92px;
+}
+
+.bw__points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bw__point {
+  background: var(--canvas-high);
+  border: 1px solid var(--outline);
+  border-radius: var(--r-card);
+  padding: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: border-color var(--t-normal) var(--ease), transform var(--t-normal) var(--ease);
+}
+
+.bw__point:hover {
+  border-color: color-mix(in srgb, var(--text-primary) 34%, transparent);
+  transform: translateY(-2px);
+}
+
+/* ── the drawn browser ── */
+
+.chrome {
+  border-radius: var(--r-card);
+  border: 1px solid var(--outline);
+  background: var(--ink);
+  overflow: hidden;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 26px 50px -24px rgba(0, 0, 0, 0.38);
+}
+
+.chrome__tabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 10px 0;
+  overflow: hidden;
+}
+
+.chrome__tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 17ch;
+  padding: 8px 11px;
+  border-radius: 10px 10px 0 0;
+  background: color-mix(in srgb, #ffffff 8%, transparent);
+  color: var(--text-on-ink-dim);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+/* The title truncates; the close affordance does not. Letting the whole tab
+   clip would eat the ✕ first and leave a tab that looks unclosable — the
+   exact reading error the app's own tab strip had to be fixed for. */
+.chrome__tab i {
+  font-style: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* A flex item's min-width is `auto`, i.e. its content — without this the
+     title refuses to shrink, the ellipsis never appears, and the tab clips
+     from the right, taking the ✕ with it. */
+  min-width: 0;
+}
+
+.chrome__tab b {
+  flex: none;
+  font-weight: 400;
+  opacity: 0.5;
+}
+
+.chrome__tab.is-on {
+  background: var(--canvas-high);
+  color: var(--text-primary);
+}
+
+.chrome__tab--new {
+  max-width: none;
+  padding-inline: 12px;
+}
+
+.chrome__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--canvas-high);
+  border-bottom: 1px solid var(--outline);
+  color: var(--text-secondary);
+}
+
+.chrome__bar > svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.chrome__url {
+  flex: 1;
+  min-width: 0;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-primary) 6%, transparent);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chrome__url b {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* The only red in the frame, and it means the same thing it means in the app:
+   something is live right now. */
+.chrome__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--blood-container);
+  color: var(--blood-on-container);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+}
+
+.chrome__live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blood);
+  animation: chrome-pulse 1.8s var(--ease) infinite;
+}
+
+@keyframes chrome-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
+
+.chrome__page {
+  background: var(--canvas-high);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chrome__row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 14px 14px 46px;
+  border: 1px solid var(--outline);
+  border-radius: var(--r-chip, 12px);
+}
+
+/* The element the agent is about to read, marked the way AURA marks it. */
+.chrome__row.is-target {
+  border-color: var(--blood);
+  box-shadow: 0 0 0 3px var(--blood-container);
+}
+
+.chrome__som {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 20px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--text-on-ink);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+}
+
+.chrome__row.is-target .chrome__som {
+  background: var(--blood);
+  color: #ffffff;
+}
+
+/* Deliberately contentless bars. Inventing product names and star ratings
+   would be inventing a screenshot; the shape of a result list is the only
+   part that carries meaning here. */
+.chrome__ln {
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-primary) 13%, transparent);
+}
+
+.chrome__ln--sm {
+  height: 6px;
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.chrome__price {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-primary);
+}
+
+.chrome__foot {
+  padding: 11px 14px;
+  background: var(--ink);
+  color: var(--text-on-ink-dim);
+  font-size: 0.72rem;
+  border-top: 1px solid var(--outline-on-ink);
+}
+
+.chrome__foot .mono {
+  color: var(--text-on-ink);
+}
+
+@media (max-width: 860px) {
+  .bw {
+    grid-template-columns: 1fr;
+  }
+
+  .bw__stage {
+    position: static;
+  }
 }

@@ -88,23 +88,96 @@
   }
 
   /* ----------------------------------------------------------------------
-     Header shadow — only once the page has actually scrolled
+     Header state — shadow once scrolled, plus a reading-progress hairline
+     ----------------------------------------------------------------------
+     Both facts come from the same scroll position, so they are read once per
+     frame rather than once per listener. The bar is decoration for a fact the
+     scrollbar already states, so it is aria-hidden and never focusable.
      ---------------------------------------------------------------------- */
 
   var hdr = document.querySelector(".hdr");
   if (hdr) {
-    var onScroll = function () {
-      hdr.setAttribute("data-stuck", window.scrollY > 8 ? "true" : "false");
+    var fill = null;
+
+    if (!reduced) {
+      var bar = document.createElement("div");
+      bar.className = "prog";
+      bar.setAttribute("aria-hidden", "true");
+      fill = document.createElement("i");
+      bar.appendChild(fill);
+      hdr.appendChild(bar);
+    }
+
+    var queued = false;
+    var span = 0;
+
+    // scrollHeight is a layout read, so it is measured on resize rather than
+    // on every frame of a scroll. Nothing on this page changes the document
+    // height while scrolling — the reveals only move opacity and transform.
+    var measure = function () {
+      span = document.documentElement.scrollHeight - window.innerHeight;
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+
+    var readScroll = function () {
+      queued = false;
+      var y = window.scrollY;
+      hdr.setAttribute("data-stuck", y > 8 ? "true" : "false");
+
+      if (!fill) return;
+      // The last viewport-height of a document cannot be scrolled past, so it
+      // is not part of the distance — without this the bar never reaches 100%.
+      fill.style.transform = "scaleX(" + (span > 0 ? Math.min(y / span, 1) : 0) + ")";
+    };
+
+    measure();
+    readScroll();
+    window.addEventListener(
+      "scroll",
+      function () {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(readScroll);
+      },
+      { passive: true }
+    );
+    window.addEventListener(
+      "resize",
+      function () {
+        measure();
+        readScroll();
+      },
+      { passive: true }
+    );
+
+    // Late-arriving assets (the demo videos, a webfont reflow) change the
+    // document height after load, and a stale span leaves the bar unable to
+    // reach the end of a page it is measuring.
+    window.addEventListener("load", measure);
   }
 
   /* ----------------------------------------------------------------------
      Reveal on scroll
+     ----------------------------------------------------------------------
+     A container marked [data-reveal-group] hands its own children the
+     treatment, each one a beat behind the last. Authoring that by hand meant
+     a --reveal-delay on every card and a renumber whenever one moved; the
+     stagger is a property of the group, so the group owns it.
+
+     The delays are set here rather than in the markup, but the hidden state
+     is pure CSS (see aura.css §9) — assigning opacity from script would flash
+     the content visible for one frame before hiding it.
      ---------------------------------------------------------------------- */
 
-  var revealables = document.querySelectorAll("[data-reveal]");
+  document.querySelectorAll("[data-reveal-group]").forEach(function (group) {
+    var step = parseInt(group.getAttribute("data-reveal-group"), 10) || 70;
+    [].forEach.call(group.children, function (child, i) {
+      // Cap the ramp: past a handful of items a linear stagger stops reading
+      // as choreography and starts reading as the page being slow.
+      child.style.setProperty("--reveal-delay", Math.min(i, 5) * step + "ms");
+    });
+  });
+
+  var revealables = document.querySelectorAll("[data-reveal], [data-reveal-group] > *");
 
   if (reduced || !("IntersectionObserver" in window)) {
     revealables.forEach(function (el) {
@@ -171,34 +244,170 @@
   });
 
   /* ----------------------------------------------------------------------
-     Video slots
+     Video — footage runs only while it is on screen
      ----------------------------------------------------------------------
-     A slot holds a <video> whose file may not exist yet. If it loads, drop
-     the dashed placeholder styling and let the footage speak. If it 404s,
-     the labelled empty state stays — so a missing file degrades to a caption
-     rather than a broken frame.
+     Five recordings used to play from the moment the page loaded, four of
+     them below the fold: five decoders running, five files streaming, and a
+     demo reel that had already looped a dozen times before anyone scrolled to
+     it. A recording is an argument; it should start when its reader arrives.
+
+     Two mechanisms were doing the playing and both are gone. The hero played
+     from the `autoplay` attribute, which is honoured by the browser before
+     any script runs and therefore ignored the reduced-motion check entirely.
+     The rest played from a `loadeddata` handler. Now there is one owner.
+
+     A <video> whose file does not exist yet must still degrade to its
+     labelled placeholder rather than a broken frame, so the slot only drops
+     its dashed styling once the file actually answers.
      ---------------------------------------------------------------------- */
 
-  document.querySelectorAll(".slot video, .phone__video").forEach(function (video) {
-    var slot = video.closest(".slot");
+  var videos = [].slice.call(document.querySelectorAll("video"));
 
-    video.addEventListener("loadeddata", function () {
-      if (slot) {
-        slot.style.border = "1px solid var(--outline)";
-        var label = slot.querySelector(".slot__label");
-        if (label) label.style.display = "none";
+  if (videos.length) {
+    // "Managed" playback is ours; a human pressing the native controls takes
+    // ownership and keeps it. Without this, pausing the MCP reel and scrolling
+    // a few pixels would restart it — the page overruling the person.
+    var isOwned = function (v) {
+      return v.hasAttribute("data-user-owned");
+    };
+
+    var autoPlay = function (v) {
+      if (reduced || isOwned(v) || v.dataset.ready !== "true" || !v.paused) return;
+      v.__auto = true;
+      var p = v.play();
+      // Autoplay can still be refused (power saving, data saver). Clear the
+      // flag so a later user-initiated play is not mistaken for ours.
+      if (p && p.catch) {
+        p.catch(function () {
+          v.__auto = false;
+        });
       }
-      video.style.display = "block";
-      if (!reduced) {
-        var p = video.play();
-        if (p && p.catch) p.catch(function () {});
+    };
+
+    var autoPause = function (v) {
+      if (isOwned(v) || v.paused) return;
+      v.__auto = true;
+      v.pause();
+    };
+
+    videos.forEach(function (video) {
+      var slot = video.closest(".slot");
+
+      // loadedmetadata, not loadeddata: with preload="metadata" Chrome hands
+      // over a first frame, but Safari is not obliged to — and the placeholder
+      // has to lift on the event that is guaranteed to arrive.
+      video.addEventListener("loadedmetadata", function () {
+        video.dataset.ready = "true";
+        if (slot) {
+          slot.classList.add("has-video");
+          var label = slot.querySelector(".slot__label");
+          if (label) label.hidden = true;
+        }
+        video.style.display = "block";
+        if (video.dataset.inview === "true") autoPlay(video);
+      });
+
+      video.addEventListener("error", function () {
+        video.style.display = "none";
+      });
+
+      // Nothing plays by itself for a visitor who asked for less motion, so
+      // hand every recording its native controls — which offer play as well as
+      // volume, and so supersede the hero's custom mute button entirely. The
+      // stage is marked so that button and its tooltip stand down rather than
+      // sit under a control bar.
+      if (reduced) {
+        video.setAttribute("controls", "");
+        var heroStage = video.closest(".hero__stage");
+        if (heroStage) heroStage.classList.add("has-controls");
       }
+
+      ["play", "pause"].forEach(function (type) {
+        video.addEventListener(type, function () {
+          if (video.__auto) {
+            video.__auto = false;
+            return;
+          }
+          // This one came from the person, not from us.
+          if (type === "pause") video.setAttribute("data-user-owned", "");
+          else video.removeAttribute("data-user-owned");
+        });
+      });
     });
 
-    video.addEventListener("error", function () {
-      video.style.display = "none";
+    if (!("IntersectionObserver" in window)) {
+      videos.forEach(function (v) {
+        v.dataset.inview = "true";
+      });
+    } else {
+      var vio = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            // Ratio alone fails on a phone, where a portrait recording is
+            // taller than the viewport and can never reach 45% visible. If it
+            // fills half the screen it is being watched, whatever its ratio.
+            var seen =
+              e.isIntersecting &&
+              (e.intersectionRatio >= 0.45 ||
+                e.intersectionRect.height >= window.innerHeight * 0.5);
+
+            e.target.dataset.inview = seen ? "true" : "false";
+            if (seen) autoPlay(e.target);
+            else autoPause(e.target);
+          });
+        },
+        { threshold: [0, 0.2, 0.45, 0.8] }
+      );
+
+      videos.forEach(function (v) {
+        vio.observe(v);
+      });
+    }
+
+    // A tab in the background should not keep decoding frames nobody is
+    // looking at — and should pick up again where it left off, not restart.
+    document.addEventListener("visibilitychange", function () {
+      videos.forEach(function (v) {
+        if (document.hidden) autoPause(v);
+        else if (v.dataset.inview === "true") autoPlay(v);
+      });
     });
-  });
+  }
+
+  /* ----------------------------------------------------------------------
+     The loop section — the step you are level with is the step lit
+     ----------------------------------------------------------------------
+     Perceive → Act → Verify is a sequence, and the section says so in words.
+     Scrolling through it one step at a time makes the same point without
+     asking anyone to read for it. Purely additive: with this off, all three
+     steps simply read at full strength.
+     ---------------------------------------------------------------------- */
+
+  var loopSteps = document.querySelectorAll(".loop__step");
+
+  if (loopSteps.length && !reduced && "IntersectionObserver" in window) {
+    var loopEl = loopSteps[0].parentNode;
+    loopEl.setAttribute("data-scrub", "");
+
+    var lio = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          e.target.classList.toggle("is-lit", e.isIntersecting);
+        });
+        // If the whole strip passes the band at once — three columns on a
+        // desktop — nothing is singled out and everything stays lit.
+        var lit = loopEl.querySelectorAll(".loop__step.is-lit").length;
+        loopEl.toggleAttribute("data-scrub", lit > 0 && lit < loopSteps.length);
+      },
+      // A narrow band across the middle of the viewport: a step is "current"
+      // while it is the thing you are looking at, not while it is on screen.
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+
+    loopSteps.forEach(function (s) {
+      lio.observe(s);
+    });
+  }
 
   /* ----------------------------------------------------------------------
      Hero video — sound off by default, unmute on tap

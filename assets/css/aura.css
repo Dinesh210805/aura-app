@@ -658,16 +658,54 @@ body.is-locked {
    9. Reveal on scroll
    -------------------------------------------------------------------------- */
 
-[data-reveal] {
+/* Gated on [data-js], which the inline head script sets before first paint.
+   The hidden state is only ever safe if something is guaranteed to come and
+   un-hide it; with scripting off these rules must not exist at all, or the
+   entire page is an invisible document with working scrollbars. */
+[data-js] [data-reveal],
+[data-js] [data-reveal-group] > * {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 620ms var(--ease-out-expo), transform 620ms var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
+  /* Deliberately no compositor hint. It would be live while the element sits
+     below the fold doing nothing, and dropped the moment the transition
+     actually runs — backwards, and ~40 promoted layers deep on this page.
+     opacity and transform are compositor properties already. */
 }
 
-[data-reveal].is-in {
+[data-js] [data-reveal].is-in,
+[data-js] [data-reveal-group] > .is-in {
   opacity: 1;
   transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   9a. Reading progress
+   --------------------------------------------------------------------------
+   A hairline along the bottom edge of the sticky header. It restates what the
+   scrollbar already says, so it is decoration: aria-hidden, and never built
+   at all when reduced motion is asked for.
+   -------------------------------------------------------------------------- */
+
+.prog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.prog i {
+  display: block;
+  height: 100%;
+  /* Scaled from the left rather than sized, so every frame of this is a
+     compositor transform and never a layout. */
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--blood), color-mix(in srgb, var(--blood) 55%, var(--text-primary)));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -675,7 +713,8 @@ body.is-locked {
     scroll-behavior: auto;
   }
 
-  [data-reveal] {
+  [data-js] [data-reveal],
+  [data-js] [data-reveal-group] > * {
     opacity: 1;
     transform: none;
     transition: none;

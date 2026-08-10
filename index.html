@@ -52,6 +52,7 @@
     <nav class="nav" aria-label="Main">
       <a href="#what">What it does</a>
       <a href="#demos">Demos</a>
+      <a href="#browser">Browser</a>
       <a href="#say">Things to say</a>
       <a href="#safety">Safety</a>
       <a href="#faq">FAQ</a>
@@ -76,6 +77,7 @@
   <a href="index.html" aria-current="page">Home</a>
   <a href="#what">What it does</a>
   <a href="#demos">Demos</a>
+  <a href="#browser">Browser</a>
   <a href="#say">Things to say</a>
   <a href="#safety">Safety</a>
   <a href="#faq">FAQ</a>
@@ -126,8 +128,11 @@
 
 <div class="hero__stage" data-reveal>
 
+  <!-- No `autoplay` attribute on purpose. The browser honours it before any
+       script runs, which put playback outside the reduced-motion check and
+       outside the in-view gate. Playback is owned by aura.js for every video
+       on the site, this one included. -->
   <video class="hero__video"
-         autoplay
          muted
          loop
          playsinline
@@ -180,9 +185,9 @@
       </p>
     </div>
 
-    <div class="feat">
+    <div class="feat" data-reveal-group="60">
 
-      <article class="feat__item feat__item--wide" data-reveal>
+      <article class="feat__item feat__item--wide">
         <span class="feat__tag">Perception</span>
         <h3 class="t-card">It sees the whole screen, not just what apps expose</h3>
         <p class="feat__body">
@@ -192,7 +197,7 @@
         </p>
       </article>
 
-      <article class="feat__item feat__item--wide" data-reveal style="--reveal-delay:60ms">
+      <article class="feat__item feat__item--wide" >
         <span class="feat__tag">Typing</span>
         <h3 class="t-card">It types in the apps that normally block automation</h3>
         <p class="feat__body">
@@ -209,7 +214,7 @@
         </div>
       </article>
 
-      <article class="feat__item" data-reveal>
+      <article class="feat__item">
         <span class="feat__tag">Voice</span>
         <h3 class="t-card">Say "Hey AURA"</h3>
         <p class="feat__body">
@@ -218,7 +223,7 @@
         </p>
       </article>
 
-      <article class="feat__item" data-reveal style="--reveal-delay:60ms">
+      <article class="feat__item" >
         <span class="feat__tag">Shortcuts</span>
         <h3 class="t-card">One call, not ten taps</h3>
         <p class="feat__body">
@@ -232,7 +237,7 @@
         </div>
       </article>
 
-      <article class="feat__item" data-reveal style="--reveal-delay:120ms">
+      <article class="feat__item" >
         <span class="feat__tag">Notifications</span>
         <h3 class="t-card">Answers without opening anything</h3>
         <p class="feat__body">
@@ -241,7 +246,7 @@
         </p>
       </article>
 
-      <article class="feat__item feat__item--wide feat__item--ink" data-reveal>
+      <article class="feat__item feat__item--wide feat__item--ink">
         <span class="feat__tag">Your key, your model</span>
         <h3 class="t-card">Bring your own brain</h3>
         <p class="feat__body">
@@ -256,7 +261,7 @@
         </div>
       </article>
 
-      <article class="feat__item feat__item--wide" data-reveal style="--reveal-delay:60ms">
+      <article class="feat__item feat__item--wide" >
         <span class="feat__tag">Memory</span>
         <h3 class="t-card">It gets better at your apps</h3>
         <p class="feat__body">
@@ -267,7 +272,7 @@
         </p>
       </article>
 
-      <article class="feat__item feat__item--full feat__item--ink" data-reveal>
+      <article class="feat__item feat__item--full feat__item--ink">
         <span class="feat__tag">Action space</span>
         <h3 class="t-card"><span data-src="toolcount">58</span> things it can actually do</h3>
         <p class="feat__body">
@@ -300,7 +305,7 @@
       </p>
     </div>
 
-    <div class="demo-grid" data-reveal>
+    <div class="demo-grid" data-reveal-group="70">
       <article class="card demo-card">
         <div class="slot demo-slot">
           <video muted loop playsinline preload="metadata">
@@ -395,6 +400,134 @@
 </section>
 
 <!-- ==================================================================
+     THE BROWSER
+     ------------------------------------------------------------------
+     Half the demo reel above is a browser run, and until this section the
+     site never said the browser existed. The chrome below is drawn in HTML
+     rather than screenshotted: it stays sharp at any size, it re-themes with
+     the page, and it can carry the same numbered-element language the hero
+     uses instead of a second, unrelated visual idiom.
+     ================================================================== -->
+<section class="section" id="browser">
+  <div class="wrap">
+
+    <div class="head head--split" data-reveal>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__som">04</span> The browser</p>
+        <h2 class="t-section">It brought a browser.<br>You watch it work.</h2>
+      </div>
+      <p class="t-lead">
+        Half the things you'd want done are on the web, not in an app. So AURA carries
+        a real browser — tabs, an address bar, back and home — and opens it
+        <strong>in front of you</strong> instead of somewhere you can't see.
+      </p>
+    </div>
+
+    <div class="bw">
+
+      <div class="bw__stage" data-reveal>
+        <div class="chrome" role="img"
+             aria-label="AURA's in-app browser: two tabs open on Amazon and Flipkart, the address bar showing amazon.in, and the second search result marked as the element AURA is about to read.">
+
+          <div class="chrome__tabs">
+            <span class="chrome__tab is-on"><i>Logitech MX Master 3S — Amazon</i><b>&times;</b></span>
+            <span class="chrome__tab"><i>MX Master 3S — Flipkart</i><b>&times;</b></span>
+            <span class="chrome__tab chrome__tab--new">+</span>
+          </div>
+
+          <div class="chrome__bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+            <span class="chrome__url"><b>amazon.in</b>/s?k=mx+master+3s</span>
+            <span class="chrome__live"><i></i>AURA</span>
+          </div>
+
+          <div class="chrome__page">
+            <div class="chrome__row">
+              <span class="chrome__som">01</span>
+              <span class="chrome__ln" style="width:78%"></span>
+              <span class="chrome__ln chrome__ln--sm" style="width:44%"></span>
+            </div>
+            <div class="chrome__row is-target">
+              <span class="chrome__som">02</span>
+              <span class="chrome__ln" style="width:86%"></span>
+              <span class="chrome__ln chrome__ln--sm" style="width:52%"></span>
+              <span class="chrome__price">₹8,295</span>
+            </div>
+            <div class="chrome__row">
+              <span class="chrome__som">03</span>
+              <span class="chrome__ln" style="width:64%"></span>
+              <span class="chrome__ln chrome__ln--sm" style="width:38%"></span>
+            </div>
+          </div>
+
+          <div class="chrome__foot">
+            <span class="mono">browser_read</span> → price, delivery, seller rating
+          </div>
+        </div>
+      </div>
+
+      <div class="bw__points" data-reveal-group="80">
+
+        <article class="bw__point">
+          <h3 class="t-card">Its tabs are your tabs</h3>
+          <p class="feat__body">
+            Up to eight of them, with a strip you can scroll and a bar you can type into.
+            Take the address bar off it mid-task and you're just browsing; nothing about it
+            is a special agent mode.
+          </p>
+        </article>
+
+        <article class="bw__point">
+          <h3 class="t-card">You stay logged in</h3>
+          <p class="feat__body">
+            Sign in once and the session sticks — through closing the tab, and through
+            closing the app entirely. Sites with their own password form work normally.
+            <strong>Google sign-in does not</strong>: Google has blocked its login inside
+            embedded browsers since 2023, everywhere, for everyone.
+          </p>
+        </article>
+
+        <article class="bw__point">
+          <h3 class="t-card">Tools written as intentions</h3>
+          <p class="feat__body">
+            <span class="mono">browser_find</span> asks for a thing by name and
+            <span class="mono">browser_extract</span> takes a whole table at once, instead of
+            twenty blind scrolls. Fewer round trips to the model is why a comparison finishes
+            in a minute rather than ten.
+          </p>
+          <div class="tools">
+            <code data-hot>browser_open</code><code>browser_read</code><code data-hot>browser_act</code><code>browser_find</code><code>browser_extract</code><code>browser_tabs</code><code>browser_wait</code><code>browser_screenshot</code><code>browser_upload</code><code data-hot>browser_handoff</code><code>browser_close</code>
+          </div>
+        </article>
+
+        <article class="bw__point">
+          <h3 class="t-card">A window, not a takeover</h3>
+          <p class="feat__body">
+            Shrink it to a floating ball and get your phone back, or leave it up and read
+            along. When something needs a human — a login, a captcha, a final confirm — it is
+            built to stop and hand you the page rather than guess its way through.
+          </p>
+        </article>
+
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:1.25rem" data-reveal>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+      <span>
+        <strong>What the browser is and isn't.</strong> Every step goes through the same
+        checkpoint as the rest of the app — permission, policy, audit — and lands in the log
+        you can read. Only ordinary web addresses can be opened; script and local-file targets
+        are rejected outright. But a browser reaches whatever the web reaches, so treat it the
+        way you'd treat handing someone your laptop: banking and payments are yours to do,
+        not its.
+      </span>
+    </p>
+
+  </div>
+</section>
+
+<!-- ==================================================================
      THINGS TO SAY
      Closes the "I installed it, now what?" gap. Grouped by what the person
      wants, not by which tool serves it.
@@ -404,7 +537,7 @@
 
     <div class="head head--split" data-reveal>
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">04</span> Things to say</p>
+        <p class="eyebrow"><span class="eyebrow__som">05</span> Things to say</p>
         <h2 class="t-section">Talk to it like a person, not a remote.</h2>
       </div>
       <p class="t-lead">
@@ -414,9 +547,9 @@
       </p>
     </div>
 
-    <div class="say">
+    <div class="say" data-reveal-group="60">
 
-      <div class="say__group" data-reveal>
+      <div class="say__group">
         <div class="say__cat">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.9 8.9 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>
           Messages
@@ -428,7 +561,7 @@
         </ul>
       </div>
 
-      <div class="say__group" data-reveal style="--reveal-delay:60ms">
+      <div class="say__group" >
         <div class="say__cat">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
           Getting around
@@ -440,7 +573,7 @@
         </ul>
       </div>
 
-      <div class="say__group" data-reveal style="--reveal-delay:120ms">
+      <div class="say__group" >
         <div class="say__cat">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>
           The phone itself
@@ -452,7 +585,7 @@
         </ul>
       </div>
 
-      <div class="say__group" data-reveal style="--reveal-delay:180ms">
+      <div class="say__group" >
         <div class="say__cat">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/></svg>
           Finding things
@@ -484,7 +617,7 @@
 <section class="section ink">
   <div class="wrap">
     <div class="head head--wide" data-reveal>
-      <p class="eyebrow"><span class="eyebrow__som">05</span> How it works</p>
+      <p class="eyebrow"><span class="eyebrow__som">06</span> How it works</p>
       <h2 class="t-section">Look. Act. Look again.</h2>
       <p class="t-lead">
         The reason most phone automation breaks is that it assumes the tap worked.
@@ -535,7 +668,7 @@
 
     <div class="head head--split" data-reveal>
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">06</span> Safety</p>
+        <p class="eyebrow"><span class="eyebrow__som">07</span> Safety</p>
         <h2 class="t-section">You're handing it your phone. Here's what it can't do.</h2>
       </div>
       <p class="t-lead">
@@ -545,7 +678,7 @@
       </p>
     </div>
 
-    <div class="guards" data-reveal>
+    <div class="guards" data-reveal-group="45">
 
       <div class="guard">
         <div class="guard__k">
@@ -643,7 +776,7 @@
   <div class="wrap">
     <div class="card" data-reveal style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:center">
       <div>
-        <p class="eyebrow"><span class="eyebrow__som">07</span> For developers</p>
+        <p class="eyebrow"><span class="eyebrow__som">08</span> For developers</p>
         <h2 class="t-card" style="font-size:clamp(1.4rem,1.1rem+1.2vw,2rem);margin-bottom:.85rem">
           Your phone is also an MCP server
         </h2>
@@ -666,7 +799,7 @@
 <section class="section" id="faq">
   <div class="wrap">
     <div class="head" data-reveal>
-      <p class="eyebrow"><span class="eyebrow__som">08</span> Questions</p>
+      <p class="eyebrow"><span class="eyebrow__som">09</span> Questions</p>
       <h2 class="t-section">The things people ask first</h2>
     </div>
 
@@ -687,7 +820,7 @@
       </details>
 
       <details>
-        <summary>Why is the download 221 MB?<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <summary>Why is the download <span data-rel="size">156.8 MB</span>?<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
         <div class="acc__body">
           <p>Because the vision models that read your screen ship <em>inside</em> the app rather than living on a server. That's the trade: a bigger download once, in exchange for perception that runs on your phone.</p>
           <p>This build also carries code for three processor types in one file so a single APK works everywhere. Splitting it per processor would cut the size to roughly a third and is planned.</p>
@@ -698,6 +831,14 @@
         <summary>Why isn't it on the Play Store?<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
         <div class="acc__body">
           <p>It's coming. For now AURA is distributed directly so it can ship and improve quickly. That means you install it yourself — the <a href="download.html" style="text-decoration:underline;text-underline-offset:3px">download page</a> walks through every step, including the one Android hides.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Can it log into websites in its browser?<svg class="acc__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></summary>
+        <div class="acc__body">
+          <p>You can, by typing your password yourself in AURA's browser — and the session stays signed in afterwards, including after you close the app. Sites that run their own login form behave exactly as they do in Chrome.</p>
+          <p>Signing in <em>with Google</em> is the exception, and it isn't AURA's choice: Google has refused its sign-in page inside embedded browsers since 2023, for every app that has one. Anything that only offers "Continue with Google" can't be logged into this way.</p>
         </div>
       </details>
 
@@ -738,7 +879,7 @@
      ================================================================== -->
 <section class="band ink">
   <div class="wrap">
-    <p class="eyebrow" style="justify-content:center"><span class="eyebrow__som">09</span> Get started</p>
+    <p class="eyebrow" style="justify-content:center"><span class="eyebrow__som">10</span> Get started</p>
     <h2 class="t-section">Give it something to do.</h2>
     <p class="t-lead">
       Free, no account, about five minutes to set up — including the permission

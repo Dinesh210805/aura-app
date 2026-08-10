@@ -812,6 +812,14 @@ table.data td.desc {
   object-fit: cover;
 }
 
+/* Set once the file answers. Until then the dashed frame and its caption are
+   the whole content of the slot, which is the point: a missing recording has
+   to read as a labelled gap, never as a broken player. */
+.slot.has-video {
+  border-style: solid;
+  border-color: var(--outline);
+}
+
 .slot__label {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
