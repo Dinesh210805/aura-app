@@ -89,14 +89,29 @@
         asking whether you're sure, which it should.
       </p>
 
+      <!-- Early access. Said before the download button, not after it: the
+           expectation has to be set while someone can still decide. Plain
+           .note, not .note--critical — red on this site means "this stops your
+           install dead", and this doesn't. -->
+      <div class="note" style="margin-top:1.75rem;max-width:52ch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+        <span>
+          <strong>This is an early release.</strong> AURA works, but it is young: some
+          apps will trip it up, a run can stall or do the wrong thing, and a few
+          screens it simply won't read yet. Nothing is destructive — you can stop a
+          run at any time — but expect rough edges, and don't point it at anything
+          you can't afford to have done twice.
+        </span>
+      </div>
+
       <div style="display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2rem">
         <a class="btn btn--blood btn--lg"
-           href="https://github.com/Dinesh210805/aura-releases/releases/download/v1.0.389/aura-1.0.389.apk"
+           href="https://github.com/Dinesh210805/aura-releases/releases/download/v1.0.438/aura-1.0.438.apk"
            data-rel-href
            data-android-label="Install on this phone"
            download>
           Download the APK
-          <span class="btn__meta" data-rel="size">159.2 MB</span>
+          <span class="btn__meta" data-rel="size">159.5 MB</span>
         </a>
         <a class="btn btn--ghost btn--lg" href="https://github.com/Dinesh210805/aura-releases/releases" rel="noopener">
           All releases
@@ -127,15 +142,15 @@
     <div class="dl__facts" data-reveal>
       <div class="fact">
         <div class="fact__k">Version</div>
-        <div class="fact__v" data-rel="version">1.0.389</div>
+        <div class="fact__v" data-rel="version">1.0.438</div>
       </div>
       <div class="fact">
         <div class="fact__k">Released</div>
-        <div class="fact__v" data-rel="date">18 Aug 2026</div>
+        <div class="fact__v" data-rel="date">30 Aug 2026</div>
       </div>
       <div class="fact">
         <div class="fact__k">Size</div>
-        <div class="fact__v" data-rel="size">159.2 MB</div>
+        <div class="fact__v" data-rel="size">159.5 MB</div>
       </div>
       <div class="fact">
         <div class="fact__k">Requires</div>
@@ -177,7 +192,7 @@
           <p class="step__d">
             Tap the download button above <em>from the phone itself</em>, not from your
             computer. The file is called
-            <code class="mono" data-rel="filename">aura-1.0.389.apk</code>.
+            <code class="mono" data-rel="filename">aura-1.0.438.apk</code>.
             It's large, so use Wi-Fi if you can.
           </p>
         </div>
@@ -508,20 +523,20 @@
         <h2 class="t-card" style="margin-bottom:.85rem">Check the fingerprint</h2>
         <p class="feat__body" style="margin-bottom:1.1rem">
           Every release is signed with the same key, and this is the SHA-256 of
-          <span class="mono" data-rel="filename">aura-1.0.389.apk</span>. If yours matches, the file
+          <span class="mono" data-rel="filename">aura-1.0.438.apk</span>. If yours matches, the file
           you have is the file that was published.
         </p>
         <div class="hashrow">
-          <p class="hash" id="sha" data-rel="sha">849E1B985C75B804FBAB397357B49172C4E3DE2EF73E76A15674D28BFA2CA96A</p>
+          <p class="hash" id="sha" data-rel="sha">8EB2779559B1B162DC27CCAB63C57BEE3D01DFEE906F8DD47C052CD3A1E38258</p>
           <button class="handoff__copy" type="button" data-copy="#sha" data-label="Copy">Copy</button>
         </div>
         <div class="code" style="margin-top:1.1rem">
           <button class="copy" type="button" data-copy="#verifycmd" data-label="Copy">Copy</button>
           <pre id="verifycmd"><span class="c"># Windows (PowerShell)</span>
-Get-FileHash aura-1.0.389.apk -Algorithm SHA256
+Get-FileHash aura-1.0.438.apk -Algorithm SHA256
 
 <span class="c"># macOS / Linux</span>
-shasum -a 256 aura-1.0.389.apk</pre>
+shasum -a 256 aura-1.0.438.apk</pre>
         </div>
       </div>
 
@@ -541,8 +556,8 @@ shasum -a 256 aura-1.0.389.apk</pre>
           </li>
           <li>
             <b style="color:var(--text-primary)">Large download.</b> One universal file carrying
-            on-device models and three processor architectures. Per-processor builds are
-            planned and will cut it to roughly a third.
+            on-device models and both ARM processor architectures. Per-processor builds are
+            planned and will cut it further.
           </li>
           <li>
             <b style="color:var(--text-primary)">Not on the Play Store yet.</b> Which is why the
@@ -600,10 +615,10 @@ shasum -a 256 aura-1.0.389.apk</pre>
     <p class="t-lead">Free, no account, and you can uninstall it like any other app.</p>
     <div class="band__cta">
       <a class="btn btn--blood btn--lg"
-         href="https://github.com/Dinesh210805/aura-releases/releases/download/v1.0.389/aura-1.0.389.apk"
+         href="https://github.com/Dinesh210805/aura-releases/releases/download/v1.0.438/aura-1.0.438.apk"
          data-rel-href download>
         Download the APK
-        <span class="btn__meta" data-rel="size">159.2 MB</span>
+        <span class="btn__meta" data-rel="size">159.5 MB</span>
       </a>
     </div>
   </div>
@@ -652,7 +667,7 @@ shasum -a 256 aura-1.0.389.apk</pre>
     <div class="foot__note">
       <span>© 2026 AURA. Built in India.</span>
       <span class="mono" style="font-size:.75rem">
-        v<span data-rel="version">1.0.389</span> · released <span data-rel="date">18 Aug 2026</span>
+        v<span data-rel="version">1.0.438</span> · released <span data-rel="date">30 Aug 2026</span>
       </span>
     </div>
   </div>

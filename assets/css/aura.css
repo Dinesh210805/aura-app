@@ -467,6 +467,14 @@ strong {
   height: 28px;
   flex: none;
   object-fit: contain;
+  /* The mark is a gradient shape with a cut-out centre, so it needs its own
+     ground to read against — otherwise the hole fills with whatever is behind
+     it and the silhouette collapses in dark mode. White, always: the disc is
+     part of the mark, not a themed surface. */
+  background: #FFF;
+  border-radius: 50%;
+  padding: 2px;
+  box-sizing: border-box;
 }
 
 .nav {
