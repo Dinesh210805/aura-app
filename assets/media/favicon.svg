@@ -1,10 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- AURA mark. Ink square, canvas letterform — the app's two worlds, nothing else.
-       The tab icon has to survive being 16px wide, so the A is drawn as strokes
-       rather than set as type: hinting destroys a real glyph at that size. -->
-  <rect width="32" height="32" rx="9" fill="#0A0A0A"/>
-  <g fill="none" stroke="#FAFAF8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M10 22.5 16 9.5l6 13"/>
-    <path d="M12.8 18.4h6.4"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#0A0A0A" rx="9"/><g fill="none" stroke="#FAFAF8" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.6"><path d="M10 22.5 16 9.5l6 13"/><path d="M12.8 18.4h6.4"/></g></svg>
